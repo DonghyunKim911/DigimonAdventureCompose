@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace = "com.dis.digimonadventurecompose"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.dis.digimonadventurecompose"
         minSdk = 34
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 35
+        versionCode = Configuration.versionCode
+        versionName = Configuration.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

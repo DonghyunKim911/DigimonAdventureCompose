@@ -21,3 +21,18 @@ dependencyResolutionManagement {
 
 rootProject.name = "DigimonAdventureCompose"
 include(":app")
+include(":ui:home")
+include(":ui:bookmark")
+include(":presentation:home")
+include(":presentation:bookmark")
+include(":ui:detail")
+include(":presentation:detail")
+include(":domain:home")
+include(":domain:detail")
+include(":domain:bookmark")
+include(":data:home")
+include(":data:detail")
+include(":data:bookmark")
+include(":remote:home")
+include(":remote:detail")
+include(":local:bookmark")
