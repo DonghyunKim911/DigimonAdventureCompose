@@ -10,3 +10,12 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.kotlinx.serialization.json)
 }
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = libs.plugins.digimonadvencture.android.application.get().pluginId
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+    }
+}
