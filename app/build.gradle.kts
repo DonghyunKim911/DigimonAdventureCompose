@@ -50,6 +50,28 @@ android {
 }
 
 dependencies {
+    implementation(projects.ui.home)
+    implementation(projects.ui.detail)
+    implementation(projects.ui.bookmark)
+
+    implementation(projects.presentation.home)
+    implementation(projects.presentation.detail)
+    implementation(projects.presentation.bookmark)
+
+    implementation(projects.domain.home)
+    implementation(projects.domain.detail)
+    implementation(projects.domain.bookmark)
+
+    implementation(projects.data.home)
+    implementation(projects.data.detail)
+    implementation(projects.data.bookmark)
+
+    implementation(projects.core.ui.designsystem)
+
+    implementation(projects.remote.home)
+    implementation(projects.remote.detail)
+
+    implementation(projects.local.bookmark)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtimeKtx)
