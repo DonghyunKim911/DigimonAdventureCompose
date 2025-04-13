@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation:bookmark"))
+    implementation(projects.presentation.bookmark)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)

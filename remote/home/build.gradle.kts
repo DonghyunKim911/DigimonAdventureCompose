@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:home"))
+    implementation(projects.data.home)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)

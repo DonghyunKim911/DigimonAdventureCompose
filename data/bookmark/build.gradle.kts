@@ -9,5 +9,5 @@ java {
 }
 
 dependencies {
-    implementation(project(":domain:bookmark"))
+    implementation(projects.domain.bookmark)
 }

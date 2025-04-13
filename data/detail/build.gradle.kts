@@ -9,5 +9,5 @@ java {
 }
 
 dependencies {
-    implementation(project(":domain:detail"))
+    implementation(projects.domain.detail)
 }
