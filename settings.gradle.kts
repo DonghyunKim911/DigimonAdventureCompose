@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -25,9 +26,9 @@ rootProject.name = "DigimonAdventureCompose"
 include(":app")
 include(":ui:home")
 include(":ui:bookmark")
+include(":ui:detail")
 include(":presentation:home")
 include(":presentation:bookmark")
-include(":ui:detail")
 include(":presentation:detail")
 include(":domain:home")
 include(":domain:detail")

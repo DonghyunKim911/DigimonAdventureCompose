@@ -1,16 +1,15 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.digimonadvencture.android.application)
 }
 
 android {
     namespace = "com.dis.digimonadventurecompose"
-    compileSdk = 35
+    compileSdk = Configuration.compileSdk
 
     defaultConfig {
         applicationId = "com.dis.digimonadventurecompose"
-        minSdk = 34
-        targetSdk = 35
+        minSdk = Configuration.minSdk
+        targetSdk = Configuration.targetSdk
         versionCode = Configuration.versionCode
         versionName = Configuration.versionName
 
@@ -20,22 +19,6 @@ android {
         }
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     buildFeatures {
         compose = true
     }
