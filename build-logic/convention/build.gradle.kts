@@ -11,10 +11,21 @@ dependencies {
     compileOnly(libs.kotlinx.serialization.json)
 }
 
+tasks {
+    validatePlugins {
+        enableStricterValidation = true
+        failOnWarning = true
+    }
+}
+
 gradlePlugin {
     plugins {
+        register("androidApplicationCompose") {
+            id = libs.plugins.digimonadventure.android.application.compose.get().pluginId
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
         register("androidApplication") {
-            id = libs.plugins.digimonadvencture.android.application.get().pluginId
+            id = libs.plugins.digimonadventure.android.application.asProvider().get().pluginId
             implementationClass = "AndroidApplicationConventionPlugin"
         }
     }
