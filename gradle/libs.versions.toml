@@ -128,6 +128,7 @@ hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 digimonadventure-android-application = { id = "digimonadventure.android.application", version = "unspecified" }
 digimonadventure-android-application-compose = { id = "digimonadventure.android.application.compose", version = "unspecified" }
 digimonadventure-android-library = { id = "digimonadventure.android.library", version = "unspecified" }
+digimonadventure-android-library-compose = { id = "digimonadventure.android.library.compose", version = "unspecified" }
 
 [bundles]
 bundle-retrofit = [

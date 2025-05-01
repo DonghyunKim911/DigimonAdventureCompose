@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.digimonadventure.android.application.compose)
+    alias(libs.plugins.digimonadventure.android.library.compose)
 }
 
 android {
