@@ -46,6 +46,8 @@ timber = "5.0.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 # Koltin
@@ -111,6 +113,8 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -129,10 +133,16 @@ digimonadventure-android-application = { id = "digimonadventure.android.applicat
 digimonadventure-android-application-compose = { id = "digimonadventure.android.application.compose", version = "unspecified" }
 digimonadventure-android-library = { id = "digimonadventure.android.library", version = "unspecified" }
 digimonadventure-android-library-compose = { id = "digimonadventure.android.library.compose", version = "unspecified" }
+digimonadventure-android-ui = { id = "digimonadventure.android.ui", version = "unspecified" }
 
 [bundles]
 bundle-retrofit = [
     "retrofit",
     "retrofit-kotlinx-serialization",
     "okhttp-logging-interceptor",
+]
+
+compose-debug = [
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-tooling-preview"
 ]

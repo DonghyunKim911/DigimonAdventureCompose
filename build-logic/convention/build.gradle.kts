@@ -36,5 +36,9 @@ gradlePlugin {
             id = libs.plugins.digimonadventure.android.library.compose.get().pluginId
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
+        register("androidUi") {
+            id = libs.plugins.digimonadventure.android.ui.get().pluginId
+            implementationClass = "AndroidUiConventionPlugin"
+        }
     }
 }

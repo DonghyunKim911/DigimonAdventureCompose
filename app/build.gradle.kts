@@ -43,7 +43,7 @@ dependencies {
     implementation(projects.data.detail)
     implementation(projects.data.bookmark)
 
-    implementation(projects.core.ui.designsystem)
+    implementation(projects.core.designsystem)
 
     implementation(projects.remote.home)
     implementation(projects.remote.detail)
