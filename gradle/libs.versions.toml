@@ -104,6 +104,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -126,6 +127,7 @@ hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 # Plugins defined by this project
 digimonadventure-android-application = { id = "digimonadventure.android.application", version = "unspecified" }
 digimonadventure-android-application-compose = { id = "digimonadventure.android.application.compose", version = "unspecified" }
+digimonadventure-android-library = { id = "digimonadventure.android.library", version = "unspecified" }
 
 [bundles]
 bundle-retrofit = [

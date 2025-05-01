@@ -28,5 +28,9 @@ gradlePlugin {
             id = libs.plugins.digimonadventure.android.application.asProvider().get().pluginId
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidLibrary") {
+            id = libs.plugins.digimonadventure.android.library.get().pluginId
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
     }
 }
