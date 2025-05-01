@@ -9,6 +9,8 @@ dependencies {
     compileOnly(libs.compose.compiler.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.kotlinx.serialization.json)
+    compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
 
 tasks {
@@ -39,6 +41,10 @@ gradlePlugin {
         register("androidUi") {
             id = libs.plugins.digimonadventure.android.ui.get().pluginId
             implementationClass = "AndroidUiConventionPlugin"
+        }
+        register("androidRoom") {
+            id = libs.plugins.digimonadventure.android.room.get().pluginId
+            implementationClass = "AndroidRoomConventionPlugin"
         }
     }
 }

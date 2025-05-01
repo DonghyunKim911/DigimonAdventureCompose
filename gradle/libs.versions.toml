@@ -25,7 +25,7 @@ androidXStartup = "1.2.0"
 androidxActivityCompose = "1.10.1"
 androidxNavigation = "2.8.9"
 androidxHiltNavigationCompose = "1.2.0"
-androidxRoom = "2.6.1"
+androidxRoom = "2.7.1"
 androidxSplashScreen = "1.0.1"
 androidxCompose = "1.7.8"
 androidxTest = "1.6.1"
@@ -82,6 +82,8 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidxRoom" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidxRoom" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidxRoom" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 compose-stable-marker = { group = "com.github.skydoves", name = "compose-stable-marker", version.ref = "composeStableMarker" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
@@ -113,8 +115,8 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "androidxRoom" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -127,6 +129,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "androidxRoom" }
 
 # Plugins defined by this project
 digimonadventure-android-application = { id = "digimonadventure.android.application", version = "unspecified" }
@@ -134,6 +137,7 @@ digimonadventure-android-application-compose = { id = "digimonadventure.android.
 digimonadventure-android-library = { id = "digimonadventure.android.library", version = "unspecified" }
 digimonadventure-android-library-compose = { id = "digimonadventure.android.library.compose", version = "unspecified" }
 digimonadventure-android-ui = { id = "digimonadventure.android.ui", version = "unspecified" }
+digimonadventure-android-room = { id = "digimonadventure.android.room", version = "unspecified" }
 
 [bundles]
 bundle-retrofit = [
