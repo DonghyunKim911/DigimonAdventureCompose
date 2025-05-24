@@ -25,7 +25,7 @@ androidXStartup = "1.2.0"
 androidxActivityCompose = "1.10.1"
 androidxNavigation = "2.8.9"
 androidxHiltNavigationCompose = "1.2.0"
-androidxRoom = "2.6.1"
+androidxRoom = "2.7.1"
 androidxSplashScreen = "1.0.1"
 androidxCompose = "1.7.8"
 androidxTest = "1.6.1"
@@ -46,6 +46,8 @@ timber = "5.0.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 # Koltin
@@ -63,8 +65,8 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
@@ -80,6 +82,8 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidxRoom" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidxRoom" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidxRoom" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 compose-stable-marker = { group = "com.github.skydoves", name = "compose-stable-marker", version.ref = "composeStableMarker" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
@@ -104,12 +108,15 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "androidxRoom" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -122,13 +129,25 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "androidxRoom" }
 
 # Plugins defined by this project
-digimonadvencture-android-application = { id = "digimonadventure.android.application", version = "unspecified" }
+digimonadventure-android-application = { id = "digimonadventure.android.application", version = "unspecified" }
+digimonadventure-android-application-compose = { id = "digimonadventure.android.application.compose", version = "unspecified" }
+digimonadventure-android-library = { id = "digimonadventure.android.library", version = "unspecified" }
+digimonadventure-android-library-compose = { id = "digimonadventure.android.library.compose", version = "unspecified" }
+digimonadventure-android-ui = { id = "digimonadventure.android.ui", version = "unspecified" }
+digimonadventure-android-room = { id = "digimonadventure.android.room", version = "unspecified" }
+digimonadventure-jvm-library = { id = "digimonadventure.jvm.library", version = "unspecified" }
 
 [bundles]
 bundle-retrofit = [
     "retrofit",
     "retrofit-kotlinx-serialization",
     "okhttp-logging-interceptor",
+]
+
+compose-debug = [
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-tooling-preview"
 ]

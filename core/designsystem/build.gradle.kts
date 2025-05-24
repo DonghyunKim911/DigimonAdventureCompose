@@ -1,9 +1,9 @@
 plugins {
-    alias(libs.plugins.digimonadventure.android.ui)
+    alias(libs.plugins.digimonadventure.android.library.compose)
 }
 
 android {
-    namespace = "com.dis.ui.home"
+    namespace = "com.dis.core.designsystem"
     compileSdk = Configuration.compileSdk
 
     defaultConfig {
@@ -12,7 +12,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.presentation.home)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)
