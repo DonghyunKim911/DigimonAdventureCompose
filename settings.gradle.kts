@@ -24,9 +24,9 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "DigimonAdventureCompose"
 include(":app")
-include(":ui:home")
-include(":ui:bookmark")
-include(":ui:detail")
+include(":feature:home")
+include(":feature:bookmark")
+include(":feature:detail")
 include(":presentation:home")
 include(":presentation:bookmark")
 include(":presentation:detail")

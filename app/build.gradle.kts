@@ -27,9 +27,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.home)
-    implementation(projects.ui.detail)
-    implementation(projects.ui.bookmark)
+    implementation(projects.feature.home)
+    implementation(projects.feature.detail)
+    implementation(projects.feature.bookmark)
 
     implementation(projects.presentation.home)
     implementation(projects.presentation.detail)
