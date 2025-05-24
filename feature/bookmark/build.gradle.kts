@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dis.ui.bookmark"
+    namespace = "com.dis.feature.bookmark"
     compileSdk = Configuration.compileSdk
 
     defaultConfig {

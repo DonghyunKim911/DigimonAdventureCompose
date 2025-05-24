@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dis.ui.home"
+    namespace = "com.dis.feature.home"
     compileSdk = Configuration.compileSdk
 
     defaultConfig {
