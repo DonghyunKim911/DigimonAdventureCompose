@@ -1,4 +1,4 @@
-package com.dis.ui.bookmark
+package com.dis.feature.bookmark
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.dis.ui.bookmark.test", appContext.packageName)
+        assertEquals("com.dis.feature.bookmark.test", appContext.packageName)
     }
 }

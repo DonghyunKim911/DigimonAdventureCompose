@@ -1,4 +1,4 @@
-package com.dis.ui.bookmark
+package com.dis.feature.bookmark
 
 import org.junit.Test
 
