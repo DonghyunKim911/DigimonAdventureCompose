@@ -46,6 +46,10 @@ gradlePlugin {
             id = libs.plugins.digimonadventure.android.room.get().pluginId
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("androidHilt") {
+            id = libs.plugins.digimonadventure.android.hilt.get().pluginId
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
         register("jvmLibrary") {
             id = libs.plugins.digimonadventure.jvm.library.get().pluginId
             implementationClass = "JvmLibraryConventionPlugin"
