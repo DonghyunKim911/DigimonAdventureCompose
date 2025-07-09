@@ -4,8 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "com.dis.local.bookmark"
-    compileSdk = 34
+    namespace = "com.dis.ui.detail"
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 34

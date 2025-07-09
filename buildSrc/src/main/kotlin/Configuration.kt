@@ -1,7 +1,6 @@
 object Configuration {
-    const val applicationId = "com.dis.digimonadventurecompose"
-    const val compileSdk = 35
-    const val targetSdk = 35
+    const val compileSdk = 34
+    const val targetSdk = 34
     const val minSdk = 34
     const val majorVersion = 1
     const val minorVersion = 1

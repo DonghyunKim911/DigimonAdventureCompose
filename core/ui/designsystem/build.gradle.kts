@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dis.local.bookmark"
+    namespace = "com.dis.core.ui.designsystem"
     compileSdk = 34
 
     defaultConfig {
