@@ -144,6 +144,7 @@ digimonadventure-android-library = { id = "digimonadventure.android.library", ve
 digimonadventure-android-library-compose = { id = "digimonadventure.android.library.compose", version = "unspecified" }
 digimonadventure-android-ui = { id = "digimonadventure.android.ui", version = "unspecified" }
 digimonadventure-android-room = { id = "digimonadventure.android.room", version = "unspecified" }
+digimonadventure-android-hilt = { id = "digimonadventure.android.hilt", version = "unspecified" }
 digimonadventure-jvm-library = { id = "digimonadventure.jvm.library", version = "unspecified" }
 
 [bundles]
