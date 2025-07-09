@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -19,13 +20,16 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "DigimonAdventureCompose"
 include(":app")
-include(":ui:home")
-include(":ui:bookmark")
+// change
+include(":feature:home")
+include(":feature:bookmark")
+include(":feature:detail")
 include(":presentation:home")
 include(":presentation:bookmark")
-include(":ui:detail")
 include(":presentation:detail")
 include(":domain:home")
 include(":domain:detail")
@@ -36,4 +40,6 @@ include(":data:bookmark")
 include(":remote:home")
 include(":remote:detail")
 include(":local:bookmark")
-include(":core:ui:designsystem")
+include(":core:designsystem")
+include(":core:ui")
+include(":core:database")
