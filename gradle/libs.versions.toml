@@ -29,6 +29,9 @@ androidxRoom = "2.7.1"
 androidxSplashScreen = "1.0.1"
 androidxCompose = "1.7.8"
 androidxTest = "1.6.1"
+androidxNav3Core = "1.0.0-alpha01"
+lifecycleViewmodelNav3 = "1.0.0-alpha01"
+material3AdaptiveNav3 = "1.0.0-SNAPSHOT"
 
 composeBom = "2025.03.00"
 composeStableMarker = "1.0.5"
@@ -85,6 +88,9 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 compose-stable-marker = { group = "com.github.skydoves", name = "compose-stable-marker", version.ref = "composeStableMarker" }
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidxNav3Core" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidxNav3Core" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
