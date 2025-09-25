@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.domain.home)
+    implementation(projects.domain.digimon)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)

@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.digimonadventure.android.ui)
+    alias(libs.plugins.digimonadventure.android.feature)
 }
 
 android {

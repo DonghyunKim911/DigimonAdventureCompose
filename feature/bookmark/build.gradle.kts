@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.digimonadventure.android.ui)
+    alias(libs.plugins.digimonadventure.android.feature)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.digimonadventure.android.library)
     alias(libs.plugins.digimonadventure.android.room)
+    alias(libs.plugins.digimonadventure.android.hilt)
 }
 
 android {
@@ -13,10 +14,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.kotlinx.serialization.json)
 }

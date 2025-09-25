@@ -28,6 +28,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.splash)
+    implementation(projects.feature.main)
     implementation(projects.feature.home)
     implementation(projects.feature.detail)
     implementation(projects.feature.bookmark)
@@ -36,20 +38,15 @@ dependencies {
     implementation(projects.presentation.detail)
     implementation(projects.presentation.bookmark)
 
-    implementation(projects.domain.home)
-    implementation(projects.domain.detail)
-    implementation(projects.domain.bookmark)
-
-    implementation(projects.data.home)
-    implementation(projects.data.detail)
-    implementation(projects.data.bookmark)
+    implementation(projects.domain.digimon)
+    implementation(projects.data.digimon)
+    implementation(projects.remote.digimon)
+    implementation(projects.local.digimon)
 
     implementation(projects.core.designsystem)
-
-    implementation(projects.remote.home)
-    implementation(projects.remote.detail)
-
-    implementation(projects.local.bookmark)
+    implementation(projects.core.navigation)
+    implementation(projects.core.network)
+    implementation(projects.core.ui)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtimeKtx)
@@ -59,6 +56,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.hilt.android)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

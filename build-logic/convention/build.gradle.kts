@@ -39,8 +39,8 @@ gradlePlugin {
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidUi") {
-            id = libs.plugins.digimonadventure.android.ui.get().pluginId
-            implementationClass = "AndroidUiConventionPlugin"
+            id = libs.plugins.digimonadventure.android.feature.get().pluginId
+            implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidRoom") {
             id = libs.plugins.digimonadventure.android.room.get().pluginId
@@ -50,9 +50,17 @@ gradlePlugin {
             id = libs.plugins.digimonadventure.android.hilt.get().pluginId
             implementationClass = "AndroidHiltConventionPlugin"
         }
+        register("androidRetrofit") {
+            id = libs.plugins.digimonadventure.android.retrofit.get().pluginId
+            implementationClass = "AndroidRetrofitConventionPlugin"
+        }
         register("jvmLibrary") {
             id = libs.plugins.digimonadventure.jvm.library.get().pluginId
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("hiltCore") {
+            id = libs.plugins.digimonadventure.hilt.core.get().pluginId
+            implementationClass = "HiltCoreConventionPlugin"
         }
     }
 }
