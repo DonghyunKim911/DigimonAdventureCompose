@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 
 abstract class BaseViewModel<ACTION: ViewAction, EVENT: ViewEvent>: ViewModel() {
 
-    private val _eventChannel = Channel<EVENT>()
+    protected val _eventChannel = Channel<EVENT>()
     val eventChannel = _eventChannel.receiveAsFlow()
 
     abstract fun onAction(action: ACTION)

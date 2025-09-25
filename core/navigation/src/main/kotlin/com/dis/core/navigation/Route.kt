@@ -20,47 +20,46 @@ sealed interface Route: NavKey {
     @Serializable
     data object Main: Route
 
+    @Serializable
+    data class Detail(val id: Int): Route
+
 }
 
-sealed interface MainRoute: NavKey {
+sealed interface BottomRoute: NavKey {
 
     val icon: ImageVector
 
     @Serializable
-    data object Home: MainRoute {
+    data object Home: BottomRoute {
         override val icon = Icons.Default.Home
     }
 
     @Serializable
-    data class Detail(val id: String)
-
-    @Serializable
-    data object Search: MainRoute {
+    data object Search: BottomRoute {
         override val icon = Icons.Default.Search
-
     }
 
     @Serializable
-    data object Bookmark: MainRoute {
+    data object Bookmark: BottomRoute {
         override val icon = Icons.Default.Bookmark
     }
 
 }
 
-val bottomBarItems = listOf<MainRoute>(
-    MainRoute.Home,
-    MainRoute.Search,
-    MainRoute.Bookmark,
+val bottomBarItems = listOf(
+    BottomRoute.Home,
+    BottomRoute.Search,
+    BottomRoute.Bookmark,
 )
 
-val BottomBarScreenSaver = Saver<MainRoute, String>(
+val BottomBarScreenSaver = Saver<BottomRoute, String>(
     save = { it::class.java.name ?: "Unknown" },
     restore = {
         when(it) {
-            MainRoute.Home::class.java.name -> MainRoute.Home
-            MainRoute.Search::class.java.name -> MainRoute.Search
-            MainRoute.Bookmark::class.java.name -> MainRoute.Bookmark
-            else -> MainRoute.Home
+            BottomRoute.Home::class.java.name -> BottomRoute.Home
+            BottomRoute.Search::class.java.name -> BottomRoute.Search
+            BottomRoute.Bookmark::class.java.name -> BottomRoute.Bookmark
+            else -> BottomRoute.Home
         }
     }
 )
@@ -74,7 +73,7 @@ fun Route.startActivity(
     packageContext.startActivity(intent)
 }
 
-fun MainRoute.startActivity(
+fun BottomRoute.startActivity(
     packageContext: Context,
     activityClass: Class<out Activity>
 ) {

@@ -73,7 +73,7 @@ class HomeViewModel @Inject constructor(
         when (action) {
 
             is HomeAction.OnDigimonClick -> {
-
+                _eventChannel.trySend(HomeEvent.NavigateToDigimonDetail(action.id))
             }
 
             HomeAction.OnFetchNextDigimonList -> onFetchNextDigimonList()

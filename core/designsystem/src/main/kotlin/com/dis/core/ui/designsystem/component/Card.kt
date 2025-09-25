@@ -32,6 +32,8 @@ import com.dis.core.ui.designsystem.theme.DigimonAdventureComposeTheme
 fun DigimonItem(
     imageUrl: String,
     name: String,
+    id: Int,
+    onClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -41,9 +43,7 @@ fun DigimonItem(
             modifier = modifier
                 .padding(6.dp)
                 .fillMaxWidth()
-                .clickable {
-
-                },
+                .clickable { onClick(id) },
             shape = RoundedCornerShape(14.dp),
             colors = CardColors(
                 containerColor = Color.White,
@@ -94,6 +94,8 @@ private fun DigimonCardPreview() {
         DigimonItem(
             imageUrl = "https://digi-api.com/images/digimon/w/Aquilamon.png",
             name = "Digimon",
+            id = 0,
+            onClick = { },
             modifier = Modifier
                 .size(40.dp)
                 .background(
