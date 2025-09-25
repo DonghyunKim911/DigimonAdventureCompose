@@ -49,13 +49,13 @@ internal fun Project.configureBuildTypes(
 }
 
 private fun BuildType.configureDebugBuildType() {
-     buildConfigField("String", "BASE_URL", "\"https://digi-api.com\"")
+     buildConfigField("String", "DIGIMON_BASE_URL", "\"https://digi-api.com\"")
 }
 
 private fun BuildType.configureReleaseBuildType(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
-    buildConfigField("String", "BASE_URL", "\"https://digi-api.com\"")
+    buildConfigField("String", "DIGIMON_BASE_URL", "\"https://digi-api.com\"")
 
     isMinifyEnabled = true
     proguardFiles(
