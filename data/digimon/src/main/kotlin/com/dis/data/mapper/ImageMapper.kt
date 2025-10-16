@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Image
 import com.dis.data.model.ImageData
-import com.dis.domain.digimon.model.Image
 
 fun ImageData.toDomain(): Image = Image(
     href = href,

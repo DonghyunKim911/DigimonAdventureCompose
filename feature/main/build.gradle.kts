@@ -14,6 +14,7 @@ android {
 
 dependencies {
     implementation(projects.presentation.home)
+    implementation(projects.presentation.detail)
     implementation(projects.feature.home)
     implementation(projects.feature.detail)
 

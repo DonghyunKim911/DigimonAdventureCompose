@@ -1,6 +1,5 @@
 package com.dis.core.database.converter
 
-import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.dis.core.database.entity.AttributeEntity
 import com.dis.core.database.entity.DescriptionEntity
@@ -16,13 +15,14 @@ import kotlinx.serialization.json.Json
 
 class AttributeListTypeConverter {
 
-    @TypeConverter fun fromJson(value: String?): List<AttributeEntity?>? =
+    @TypeConverter
+    fun fromJson(value: String?): List<AttributeEntity?>? =
         value?.let { Json { ignoreUnknownKeys = true }.decodeFromString(it) }
-    @TypeConverter fun toJson(list: List<AttributeEntity?>?): String? =
+    @TypeConverter
+    fun toJson(list: List<AttributeEntity?>?): String? =
         list?.let { Json.encodeToString(it) }
 }
 
-@ProvidedTypeConverter
 class DescriptionListTypeConverter {
 
     @TypeConverter

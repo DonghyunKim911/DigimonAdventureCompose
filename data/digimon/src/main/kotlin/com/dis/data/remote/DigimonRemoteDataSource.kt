@@ -1,5 +1,6 @@
 package com.dis.data.remote
 
+import com.dis.data.model.DigimonData
 import com.dis.data.model.DigimonListData
 
 interface DigimonRemoteDataSource {
@@ -8,5 +9,9 @@ interface DigimonRemoteDataSource {
         page: Int,
         pageSize: Int,
     ): DigimonListData
+
+    suspend fun getDigimonDetail(
+        id: Int
+    ): DigimonData
 
 }

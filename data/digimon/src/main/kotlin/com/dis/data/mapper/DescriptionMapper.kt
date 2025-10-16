@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Description
 import com.dis.data.model.DescriptionData
-import com.dis.domain.digimon.model.Description
 
 fun DescriptionData.toDomain(): Description = Description(
     description = description,

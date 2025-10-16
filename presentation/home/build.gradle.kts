@@ -15,6 +15,7 @@ android {
 dependencies {
     implementation(projects.domain.digimon)
     implementation(projects.core.presentation)
+    implementation(projects.core.domain)
     implementation(libs.javax.inject)
 
     implementation(libs.androidx.lifecycle.viewModelCompose)

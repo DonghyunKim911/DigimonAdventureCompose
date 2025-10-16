@@ -13,36 +13,36 @@ import com.dis.core.database.entity.TypeEntity
 import com.dis.data.model.DigimonData
 
 fun DigimonEntity.toData(): DigimonData = DigimonData(
-    attribute = attribute?.map { it?.toData() },
-    description = description?.map { it?.toData() },
-    field = field?.map { it?.toData() },
+    attribute = attribute.map { it?.toData() },
+    description = description.map { it?.toData() },
+    field = field.map { it?.toData() },
     id = id,
-    image = image?.map { it?.toData() },
-    level = level?.map { it?.toData() },
+    image = image.map { it?.toData() },
+    level = level.map { it?.toData() },
     name = name,
-    nextEvolution = nextEvolution?.map { it?.toData() },
-    priorEvolution = priorEvolution?.map { it?.toData() },
+    nextEvolution = nextEvolution.map { it?.toData() },
+    priorEvolution = priorEvolution.map { it?.toData() },
     releaseDate = releaseDate,
-    skills = skills?.map { it?.toData() },
-    type = type?.map { it?.toData() },
+    skills = skills.map { it?.toData() },
+    type = type.map { it?.toData() },
     xAntibody = xAntibody
 )
 
 fun DigimonData.toLocal(): DigimonEntity = DigimonEntity(
-    attribute = attribute?.map {
+    attribute = attribute.map {
         AttributeEntity(
             attribute = it?.attribute,
             id = it?.id
         )
     },
-    description = description?.map {
+    description = description.map {
         DescriptionEntity(
             description = it?.description,
             language = it?.language,
             origin = it?.origin
         )
     },
-    field = field?.map {
+    field = field.map {
         FieldEntity(
             field = it?.field,
             id = it?.id,
@@ -50,20 +50,20 @@ fun DigimonData.toLocal(): DigimonEntity = DigimonEntity(
         )
     },
     id = id,
-    image = image?.map {
+    image = image.map {
         ImageEntity(
             href = it?.href,
             transparent = it?.transparent
         )
     },
-    level = level?.map {
+    level = level.map {
         LevelEntity(
             id = it?.id,
             level = it?.level
         )
     },
     name = name,
-    nextEvolution = nextEvolution?.map {
+    nextEvolution = nextEvolution.map {
         NextEvolutionEntity(
             condition = it?.condition,
             digimon = it?.digimon,
@@ -72,7 +72,7 @@ fun DigimonData.toLocal(): DigimonEntity = DigimonEntity(
             url = it?.url
         )
     },
-    priorEvolution = priorEvolution?.map {
+    priorEvolution = priorEvolution.map {
         PriorEvolutionEntity(
             condition = it?.condition,
             digimon = it?.digimon,
@@ -82,7 +82,7 @@ fun DigimonData.toLocal(): DigimonEntity = DigimonEntity(
         )
     },
     releaseDate = releaseDate,
-    skills = skills?.map {
+    skills = skills.map {
         SkillEntity(
             description = it?.description,
             id = it?.id,
@@ -90,7 +90,7 @@ fun DigimonData.toLocal(): DigimonEntity = DigimonEntity(
             translation = it?.translation
         )
     },
-    type = type?.map {
+    type = type.map {
         TypeEntity(
             id = it?.id,
             type = it?.type

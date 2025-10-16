@@ -33,7 +33,7 @@ sealed interface ApiResponse<out T> {
                 if (throwable is SocketTimeoutException) {
                     NetworkSocketTimeoutException()
                 } else {
-//                    if (!isNetworkConnected(MonkeyApplication.getContext())) {
+//                    if (!isNetworkConnected(Application.getContext())) {
 //                        NetworkBadConnectionException()
 //                    } else {
 //                        NetworkBadUrlException()

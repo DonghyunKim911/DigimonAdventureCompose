@@ -1,9 +1,12 @@
 package com.dis.data.impl
 
+import com.dis.core.domain.model.Content
+import com.dis.core.domain.model.Digimon
+import com.dis.core.domain.model.Favorite
 import com.dis.data.local.DigimonLocalDataSource
+import com.dis.data.mapper.toData
 import com.dis.data.mapper.toDomain
 import com.dis.data.remote.DigimonRemoteDataSource
-import com.dis.domain.digimon.model.Content
 import com.dis.domain.digimon.repository.DigimonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -28,6 +31,28 @@ class DigimonRepositoryImpl @Inject constructor(
                 emit(digimons.map { it.toDomain() })
             }
         }
+
+    override suspend fun getDigimonDetail(id: Int): Digimon? {
+        val digimon = local.getDigimonDetail(id)?.toDomain()
+        val favorite = local.fetchFavoriteDigimon(id)
+        val isFavorite = if (favorite != null) favorite.id == id else false
+
+        return if (digimon == null) {
+            val response = remote.getDigimonDetail(id)
+            local.saveDigimonDetail(response)
+            response.toDomain().copy(isFavorite = isFavorite)
+        } else {
+            digimon.copy(isFavorite = isFavorite)
+        }
+    }
+
+    override suspend fun saveFavoriteDigimon(favorite: Favorite) {
+        local.saveFavorite(favorite.toData())
+    }
+
+    override suspend fun deleteFavoriteDigimon(favorite: Favorite) {
+        local.deleteFavoriteDigimon(favorite.toData())
+    }
 
     companion object {
 

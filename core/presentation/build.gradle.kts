@@ -13,7 +13,11 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.domain)
+
     implementation(libs.androidx.lifecycle.viewModelCompose)
+
+    implementation(libs.kotlinx.immutable.collection)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -13,7 +13,12 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.domain)
+    implementation(projects.core.presentation)
     implementation(projects.domain.digimon)
+
+    implementation(libs.kotlinx.immutable.collection)
+    implementation(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)

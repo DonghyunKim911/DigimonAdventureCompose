@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Skill
 import com.dis.data.model.SkillData
-import com.dis.domain.digimon.model.Skill
 
 fun SkillData.toDomain(): Skill = Skill(
     description = description,

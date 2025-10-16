@@ -8,29 +8,29 @@ import javax.annotation.concurrent.Immutable
 @Serializable
 data class DigimonResponse(
     @SerialName("attributes")
-    val attribute: List<AttributeResponse?>?,
+    val attribute: List<AttributeResponse?> = emptyList(),
     @SerialName("descriptions")
-    val description: List<DescriptionResponse?>?,
+    val description: List<DescriptionResponse?> = emptyList(),
     @SerialName("fields")
-    val field: List<FieldResponse?>?,
+    val field: List<FieldResponse?> = emptyList(),
     @SerialName("id")
-    val id: Int?,
+    val id: Int = -1,
     @SerialName("images")
-    val image: List<ImageResponse?>?,
+    val image: List<ImageResponse?> = emptyList(),
     @SerialName("levels")
-    val level: List<LevelResponse?>?,
+    val level: List<LevelResponse?> = emptyList(),
     @SerialName("name")
-    val name: String?,
+    val name: String = "",
     @SerialName("nextEvolutions")
-    val nextEvolution: List<NextEvolutionResponse?>?,
+    val nextEvolution: List<NextEvolutionResponse?> = emptyList(),
     @SerialName("priorEvolutions")
-    val priorEvolution: List<PriorEvolutionResponse?>?,
+    val priorEvolution: List<PriorEvolutionResponse?> = emptyList(),
     @SerialName("releaseDate")
-    val releaseDate: String?,
+    val releaseDate: String = "",
     @SerialName("skills")
-    val skills: List<SkillResponse?>?,
+    val skills: List<SkillResponse?> = emptyList(),
     @SerialName("types")
-    val type: List<TypeResponse?>?,
+    val type: List<TypeResponse?> = emptyList(),
     @SerialName("xAntibody")
-    val xAntibody: Boolean?
+    val xAntibody: Boolean = false,
 )

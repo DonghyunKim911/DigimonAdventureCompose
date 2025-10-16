@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.digimonadventure.android.feature)
+    alias(libs.plugins.digimonadventure.android.hilt)
 }
 
 android {
@@ -13,6 +14,14 @@ android {
 
 dependencies {
     implementation(projects.presentation.detail)
+    implementation(projects.core.presentation)
+
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewModelCompose)
+
+    implementation(libs.kotlinx.immutable.collection)
+
+    implementation(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)

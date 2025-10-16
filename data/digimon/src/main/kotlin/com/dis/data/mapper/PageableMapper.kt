@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Pageable
 import com.dis.data.model.PageableData
-import com.dis.domain.digimon.model.Pageable
 
 fun PageableData.toDomain(): Pageable = Pageable(
     currentPage = currentPage,

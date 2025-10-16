@@ -2,9 +2,9 @@ package com.dis.presentation.home
 
 import androidx.lifecycle.viewModelScope
 import com.core.presentation.base.BaseViewModel
+import com.core.presentation.mapper.toPresentation
+import com.core.presentation.model.ContentModel
 import com.dis.domain.digimon.usecase.GetDigimonListUseCase
-import com.dis.presentation.mapper.toPresentation
-import com.dis.presentation.model.ContentModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf

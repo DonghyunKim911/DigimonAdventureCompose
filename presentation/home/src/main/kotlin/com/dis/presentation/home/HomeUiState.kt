@@ -1,7 +1,7 @@
 package com.dis.presentation.home
 
 import androidx.compose.runtime.Stable
-import com.dis.presentation.model.ContentModel
+import com.core.presentation.model.ContentModel
 
 @Stable
 data class HomeUiState(
