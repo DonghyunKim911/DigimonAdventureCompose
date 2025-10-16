@@ -258,14 +258,14 @@ private fun DigimonContent(
         }
 
         Text(
-            text = digimon.description.first()?.description.toString(),
+            text = digimon.description.firstOrNull()?.description ?: "",
             fontSize = 14.sp
         )
 
         DigimonInfo(
             level = digimon.level.first()?.level ?: "",
-            attribute = digimon.attribute.first()?.attribute ?: "",
-            type = digimon.type.first()?.type ?: "",
+            attribute = digimon.attribute.firstOrNull()?.attribute ?: "",
+            type = digimon.type.firstOrNull()?.type ?: "",
         )
 
         DigimonFieldContent(digimon.field)
