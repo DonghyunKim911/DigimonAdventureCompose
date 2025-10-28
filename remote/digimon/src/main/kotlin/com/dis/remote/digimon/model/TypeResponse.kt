@@ -10,5 +10,5 @@ data class TypeResponse(
     @SerialName("id")
     val id: Int?,
     @SerialName("type")
-    val type: String?
+    val type: String?,
 )

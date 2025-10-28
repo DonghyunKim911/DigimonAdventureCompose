@@ -34,8 +34,9 @@ fun SkillItem(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .padding(horizontal = 8.dp),
+        modifier =
+            modifier
+                .padding(horizontal = 8.dp),
     ) {
         Text(
             text = name,
@@ -51,7 +52,6 @@ fun SkillItem(
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
         )
-
     }
 }
 
@@ -62,10 +62,11 @@ private fun SKillItemPreview() {
         SkillItem(
             name = "Baby Flame",
             description = "Spits a fiery breath from its mouth to attack the opponent.",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp)
-                .background(color = Color(0xFFE8EDF2), shape = RoundedCornerShape(6.dp))
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(48.dp)
+                    .background(color = Color(0xFFE8EDF2), shape = RoundedCornerShape(6.dp)),
         )
     }
 }

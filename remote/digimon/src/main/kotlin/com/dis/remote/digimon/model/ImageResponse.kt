@@ -10,5 +10,5 @@ data class ImageResponse(
     @SerialName("href")
     val href: String?,
     @SerialName("transparent")
-    val transparent: Boolean?
+    val transparent: Boolean?,
 )

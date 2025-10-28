@@ -3,12 +3,13 @@ package com.dis.local.digimon.mapper
 import com.dis.core.database.entity.DigimonListEntity
 import com.dis.data.model.DigimonListData
 
-fun DigimonListEntity.toDigimonList(): DigimonListData = DigimonListData(
-    contents = contents?.map { it?.toData() },
-    pageable = pageable?.toData()
-)
+fun DigimonListEntity.toDigimonList(): DigimonListData =
+    DigimonListData(
+        contents = contents?.map { it?.toData() },
+        pageable = pageable?.toData(),
+    )
 
-//fun DigimonListData.toLocal(): DigimonListEntity = DigimonListEntity(
+// fun DigimonListData.toLocal(): DigimonListEntity = DigimonListEntity(
 //    contents = contents?.map {
 //        ContentEntity(
 //            id = it?.id,
@@ -26,4 +27,4 @@ fun DigimonListEntity.toDigimonList(): DigimonListData = DigimonListData(
 //        totalElements = pageable?.totalElements,
 //        totalPages = pageable?.totalPages
 //    )
-//)
+// )

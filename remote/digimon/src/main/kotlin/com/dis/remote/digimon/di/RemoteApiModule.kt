@@ -11,11 +11,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object RemoteApiModule {
-
     @Provides
     @Singleton
-    fun provideDigimonApi(retrofit: Retrofit): DigimonApi {
-        return retrofit.create(DigimonApi::class.java)
-    }
-
+    fun provideDigimonApi(retrofit: Retrofit): DigimonApi = retrofit.create(DigimonApi::class.java)
 }

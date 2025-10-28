@@ -2,7 +2,6 @@ package com.dis.core.database.entity
 
 import kotlinx.serialization.Serializable
 
-
 /**
  * Used for getting Digimon list from Room.
  * */
@@ -10,5 +9,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class DigimonListEntity(
     val contents: List<ContentEntity?>?,
-    val pageable: PageableEntity? // Not used in this project.
+    val pageable: PageableEntity?, // Not used in this project.
 )

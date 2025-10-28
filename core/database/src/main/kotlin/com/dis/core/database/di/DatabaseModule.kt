@@ -25,14 +25,14 @@ private const val DB_NAME = "digimon.db"
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DatabaseModule {
-
     @Provides
     @Singleton
     fun provideDigimonDatabase(
         @ApplicationContext context: Context,
-    ): DigimonDatabase = Room
-        .databaseBuilder(context, DigimonDatabase::class.java,DB_NAME)
-        .build()
+    ): DigimonDatabase =
+        Room
+            .databaseBuilder(context, DigimonDatabase::class.java, DB_NAME)
+            .build()
 
     @Provides
     @Singleton
@@ -69,5 +69,4 @@ internal object DatabaseModule {
     @Provides
     @Singleton
     fun provideTypeListTypeConverter(): TypeListTypeConverter = TypeListTypeConverter()
-
 }

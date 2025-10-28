@@ -22,72 +22,72 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    getDigimonListUseCase: GetDigimonListUseCase
-) : BaseViewModel<HomeAction, HomeEvent>() {
+class HomeViewModel
+    @Inject
+    constructor(
+        getDigimonListUseCase: GetDigimonListUseCase,
+    ) : BaseViewModel<HomeAction, HomeEvent>() {
+        private val pagingIndex = MutableStateFlow(0)
+        private val allDigimons = MutableStateFlow<PersistentList<ContentModel>>(persistentListOf())
+        private var lastPageReached = false
 
-    private val pagingIndex = MutableStateFlow(0)
-    private val allDigimons = MutableStateFlow<PersistentList<ContentModel>>(persistentListOf())
-    private var lastPageReached = false
-
-    val state: StateFlow<HomeUiState> = pagingIndex.flatMapConcat { page ->
-                flow {
-                    emit(
-                        HomeUiState(
-                            isLoading = true,
-                            digimonList = allDigimons.value,
-                            isLastPageReached = lastPageReached
+        val state: StateFlow<HomeUiState> =
+            pagingIndex
+                .flatMapConcat { page ->
+                    flow {
+                        emit(
+                            HomeUiState(
+                                isLoading = true,
+                                digimonList = allDigimons.value,
+                                isLastPageReached = lastPageReached,
+                            ),
                         )
-                    )
 
-                    val newItems = getDigimonListUseCase(page).first()
-                    val mapped = newItems.map { it.toPresentation() }
+                        val newItems = getDigimonListUseCase(page).first()
+                        val mapped = newItems.map { it.toPresentation() }
 
-                    allDigimons.value = if (page == 0) {
-                        mapped.toPersistentList()
-                    } else {
-                        allDigimons.value.addAll(mapped)
+                        allDigimons.value =
+                            if (page == 0) {
+                                mapped.toPersistentList()
+                            } else {
+                                allDigimons.value.addAll(mapped)
+                            }
+
+                        lastPageReached = newItems.isEmpty() || newItems.size < DEFAULT_PAGE_SIZE
+
+                        emit(
+                            HomeUiState(
+                                isLoading = false,
+                                digimonList = allDigimons.value,
+                                isLastPageReached = lastPageReached,
+                            ),
+                        )
                     }
+                }.onStart {
+                    emit(HomeUiState(isLoading = true))
+                }.stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = HomeUiState(),
+                )
 
-                    lastPageReached = newItems.isEmpty() || newItems.size < DEFAULT_PAGE_SIZE
-
-                    emit(
-                        HomeUiState(
-                            isLoading = false,
-                            digimonList = allDigimons.value,
-                            isLastPageReached = lastPageReached
-                        )
-                    )
+        override fun onAction(action: HomeAction) {
+            when (action) {
+                is HomeAction.OnDigimonClick -> {
+                    _eventChannel.trySend(HomeEvent.NavigateToDigimonDetail(action.id))
                 }
-            }
-            .onStart {
-                emit(HomeUiState(isLoading = true))
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = HomeUiState()
-            )
 
-    override fun onAction(action: HomeAction) {
-        when (action) {
-
-            is HomeAction.OnDigimonClick -> {
-                _eventChannel.trySend(HomeEvent.NavigateToDigimonDetail(action.id))
+                HomeAction.OnFetchNextDigimonList -> onFetchNextDigimonList()
             }
+        }
 
-            HomeAction.OnFetchNextDigimonList -> onFetchNextDigimonList()
+        private fun onFetchNextDigimonList() {
+            if (!state.value.isLoading && !state.value.isLastPageReached) {
+                pagingIndex.value++
+            }
+        }
+
+        companion object {
+            const val DEFAULT_PAGE_SIZE = 20
         }
     }
-
-    private fun onFetchNextDigimonList() {
-        if (!state.value.isLoading && !state.value.isLastPageReached) {
-            pagingIndex.value++
-        }
-    }
-
-    companion object {
-        const val DEFAULT_PAGE_SIZE = 20
-    }
-
-}

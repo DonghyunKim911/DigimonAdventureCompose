@@ -12,7 +12,6 @@ import com.dis.core.database.entity.FavoriteEntity
 
 @Dao
 interface DigimonDao {
-
     @Upsert
     suspend fun upsertDigimonList(contents: List<ContentEntity>)
 
@@ -33,5 +32,4 @@ interface DigimonDao {
 
     @Query("SELECT * FROM FavoriteEntity WHERE id = :id")
     suspend fun getFavorite(id: Int): FavoriteEntity? // todo : use `distinctUntilChanged`.
-
 }

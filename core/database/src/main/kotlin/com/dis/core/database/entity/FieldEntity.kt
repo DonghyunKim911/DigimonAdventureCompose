@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class FieldEntity(
     val `field`: String?,
     val id: Int?,
-    val image: String?
+    val image: String?,
 )

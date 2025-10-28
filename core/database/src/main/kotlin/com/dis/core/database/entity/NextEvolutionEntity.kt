@@ -8,5 +8,5 @@ data class NextEvolutionEntity(
     val digimon: String?,
     val id: Int?,
     val image: String?,
-    val url: String?
+    val url: String?,
 )

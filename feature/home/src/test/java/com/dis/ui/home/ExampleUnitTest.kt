@@ -1,6 +1,5 @@
 package com.dis.feature.bookmark
 
-
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

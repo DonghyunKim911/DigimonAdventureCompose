@@ -9,5 +9,5 @@ data class Pageable(
     val nextPage: String?,
     val previousPage: String?,
     val totalElements: Int?,
-    val totalPages: Int?
+    val totalPages: Int?,
 )

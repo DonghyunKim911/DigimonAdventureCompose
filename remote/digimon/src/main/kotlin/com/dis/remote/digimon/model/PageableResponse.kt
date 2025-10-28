@@ -21,5 +21,5 @@ data class PageableResponse(
     @SerialName("totalElements")
     val totalElements: Int?,
     @SerialName("totalPages")
-    val totalPages: Int?
+    val totalPages: Int?,
 )

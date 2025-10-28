@@ -8,7 +8,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface DigimonApi {
-
     @GET("api/v1/digimon")
     suspend fun getDigimonList(
         @Query("page") page: Int = 0,
@@ -16,6 +15,7 @@ interface DigimonApi {
     ): ApiResponse<DigimonListResponse>
 
     @GET("api/v1/digimon/{id}")
-    suspend fun getDigimon(@Path("id") id: Int): ApiResponse<DigimonResponse>
-
+    suspend fun getDigimon(
+        @Path("id") id: Int,
+    ): ApiResponse<DigimonResponse>
 }

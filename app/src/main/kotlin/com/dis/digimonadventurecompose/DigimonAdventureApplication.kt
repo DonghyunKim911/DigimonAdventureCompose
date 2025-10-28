@@ -6,10 +6,8 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class DigimonAdventureApplication: Application() {
-
+class DigimonAdventureApplication : Application() {
     override fun onCreate() {
         super.onCreate()
     }
-
 }

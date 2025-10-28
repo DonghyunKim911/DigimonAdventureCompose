@@ -6,7 +6,6 @@ import com.dis.core.domain.model.Favorite
 import kotlinx.coroutines.flow.Flow
 
 interface DigimonRepository {
-
     fun getDigimonList(page: Int): Flow<List<Content>>
 
     suspend fun getDigimonDetail(id: Int): Digimon?
@@ -14,5 +13,4 @@ interface DigimonRepository {
     suspend fun saveFavoriteDigimon(favorite: Favorite)
 
     suspend fun deleteFavoriteDigimon(favorite: Favorite)
-
 }

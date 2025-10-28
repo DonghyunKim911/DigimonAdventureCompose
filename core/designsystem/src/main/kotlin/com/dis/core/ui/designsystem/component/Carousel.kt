@@ -26,18 +26,18 @@ import kotlin.math.absoluteValue
 @Composable
 fun ImageCarousel(
     images: List<String>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
     val pagerState = rememberPagerState { images.size }
     val currentPageOffsetFraction by remember {
         derivedStateOf { pagerState.currentPageOffsetFraction }
     }
 
     Column(
-        modifier = modifier
-            .defaultMinSize(minHeight = 240.dp)
-            .fillMaxWidth()
+        modifier =
+            modifier
+                .defaultMinSize(minHeight = 240.dp)
+                .fillMaxWidth(),
     ) {
         HorizontalPager(
             state = pagerState,
@@ -49,24 +49,23 @@ fun ImageCarousel(
                 model = images[page],
                 contentDescription = "Digimon Image",
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .graphicsLayer {
-                        val pageOffset =
-                            (pagerState.currentPage - page + currentPageOffsetFraction).absoluteValue
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(220.dp)
+                        .graphicsLayer {
+                            val pageOffset =
+                                (pagerState.currentPage - page + currentPageOffsetFraction).absoluteValue
 
-                        lerp(
-                            start = 75.dp,
-                            stop = 100.dp,
-                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                        ).also { scale ->
-                            scaleY = scale / 100.dp
-                        }
-                    },
+                            lerp(
+                                start = 75.dp,
+                                stop = 100.dp,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f),
+                            ).also { scale ->
+                                scaleY = scale / 100.dp
+                            }
+                        },
             )
-
         }
     }
-
 }

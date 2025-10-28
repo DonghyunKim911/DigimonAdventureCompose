@@ -14,5 +14,5 @@ data class SkillResponse(
     @SerialName("skill")
     val skill: String?,
     @SerialName("translation")
-    val translation: String?
+    val translation: String?,
 )

@@ -27,11 +27,9 @@ import com.dis.core.database.entity.FavoriteEntity
         NextEvolutionListTypeConverter::class,
         PriorEvolutionListTypeConverter::class,
         SkillListTypeConverter::class,
-        TypeListTypeConverter::class
-    ]
+        TypeListTypeConverter::class,
+    ],
 )
-abstract class DigimonDatabase: RoomDatabase() {
-
+abstract class DigimonDatabase : RoomDatabase() {
     abstract fun digimonDao(): DigimonDao
-
 }

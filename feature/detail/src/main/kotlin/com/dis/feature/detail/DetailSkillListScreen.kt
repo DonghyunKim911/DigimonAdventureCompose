@@ -32,7 +32,7 @@ import com.dis.core.ui.designsystem.theme.Background
 fun DetailSKillListScreenRoot(
     onBack: () -> Unit,
     skills: List<SkillModel?>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     DetailSKillListScreen(
         onBack = onBack,
@@ -49,16 +49,18 @@ private fun DetailSKillListScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
+        modifier =
+            modifier
+                .fillMaxSize(),
     ) {
         TopAppBar(
             title = {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Background)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(color = Background),
                 ) {
                     Text(
                         text = "SKills",
@@ -69,10 +71,11 @@ private fun DetailSKillListScreen(
             navigationIcon = {
                 Box {
                     Image(
-                        modifier = Modifier
-                            .align(Alignment.CenterStart)
-                            .padding(start = 8.dp)
-                            .clickable { onBack() },
+                        modifier =
+                            Modifier
+                                .align(Alignment.CenterStart)
+                                .padding(start = 8.dp)
+                                .clickable { onBack() },
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
                     )
@@ -81,30 +84,31 @@ private fun DetailSKillListScreen(
         )
 
         LazyColumn(
-            modifier = Modifier
-                .background(color = Background),
-            contentPadding = PaddingValues(6.dp)
+            modifier =
+                Modifier
+                    .background(color = Background),
+            contentPadding = PaddingValues(6.dp),
         ) {
             items(
                 items = skills,
-                key = { skill -> skill?.id ?: 0 } // id must not be null.
+                key = { skill -> skill?.id ?: 0 }, // id must not be null.
             ) { skill ->
                 skill?.let {
                     Spacer(Modifier.height(8.dp))
                     SkillItem(
                         name = it.skill ?: "",
                         description = it.description ?: "",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(48.dp)
-                            .background(
-                                color = Color(color = 0xFFE8EDF2),
-                                shape = RoundedCornerShape(6.dp)
-                            )
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(48.dp)
+                                .background(
+                                    color = Color(color = 0xFFE8EDF2),
+                                    shape = RoundedCornerShape(6.dp),
+                                ),
                     )
                 }
             }
         }
-
     }
 }

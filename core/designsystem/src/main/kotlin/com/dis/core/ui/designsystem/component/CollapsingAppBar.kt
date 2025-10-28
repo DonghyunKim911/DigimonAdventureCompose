@@ -63,35 +63,38 @@ fun CollapsingAppBar(
         }
     }
 
-    val appBarDragModifier = if (!scrollBehavior.isPinned) {
-        Modifier.draggable(
-            orientation = Orientation.Vertical,
-            state = rememberDraggableState { delta ->
-                scrollBehavior.state.heightOffset = offset + delta
-            },
-            onDragStopped = { velocity ->
-                settleAppBar(
-                    scrollBehavior.state,
-                    velocity,
-                    scrollBehavior.flingAnimationSpec,
-                    scrollBehavior.snapAnimationSpec
-                )
-            }
-        )
-    } else {
-        Modifier
-    }
+    val appBarDragModifier =
+        if (!scrollBehavior.isPinned) {
+            Modifier.draggable(
+                orientation = Orientation.Vertical,
+                state =
+                    rememberDraggableState { delta ->
+                        scrollBehavior.state.heightOffset = offset + delta
+                    },
+                onDragStopped = { velocity ->
+                    settleAppBar(
+                        scrollBehavior.state,
+                        velocity,
+                        scrollBehavior.flingAnimationSpec,
+                        scrollBehavior.snapAnimationSpec,
+                    )
+                },
+            )
+        } else {
+            Modifier
+        }
 
-    val baseOffset =  if (scrollBehavior.state.heightOffsetLimit > minHeightPx) -minHeightPx else (minHeightPx - collapsingContentHeight)
+    val baseOffset = if (scrollBehavior.state.heightOffsetLimit > minHeightPx) -minHeightPx else (minHeightPx - collapsingContentHeight)
     val titleCollapsedFraction = offset / baseOffset
     val collapsedTitleAlpha =
         CubicBezierEasing(.8f, 0f, .8f, .15f).transform(titleCollapsedFraction)
     val expandedTitleAlpha = 1f - titleCollapsedFraction
 
     Surface(
-        modifier = modifier
-            .background(backgroundColor.copy(alpha = collapsedTitleAlpha))
-            .then(appBarDragModifier)
+        modifier =
+            modifier
+                .background(backgroundColor.copy(alpha = collapsedTitleAlpha))
+                .then(appBarDragModifier),
     ) {
         Layout(
             modifier = Modifier,
@@ -101,17 +104,17 @@ fun CollapsingAppBar(
                         .layoutId("toolbar")
                         .fillMaxWidth()
                         .height(minHeight)
-                        .background(backgroundColor.copy(alpha = collapsedTitleAlpha))
+                        .background(backgroundColor.copy(alpha = collapsedTitleAlpha)),
                 ) {
                     toolbarContent(collapsedTitleAlpha, title)
                 }
                 Box(
-                    modifier = Modifier
-                        .layoutId("collapsingContent")
+                    modifier =
+                        Modifier
+                            .layoutId("collapsingContent"),
                 ) {
                     collapsingContent(expandedTitleAlpha, imageUrl)
                 }
-
             },
         ) { measurables, constraints ->
             val ccPlaceable =
@@ -128,7 +131,8 @@ fun CollapsingAppBar(
 
             layout(maxWidth, currentHeight.toInt()) {
                 ccPlaceable.placeRelative(
-                    0, offset.roundToInt()
+                    0,
+                    offset.roundToInt(),
                 )
                 tbPlaceable.placeRelative(0, 0)
             }
@@ -141,7 +145,7 @@ private suspend fun settleAppBar(
     state: TopAppBarState,
     velocity: Float,
     flingAnimationSpec: DecayAnimationSpec<Float>?,
-    snapAnimationSpec: AnimationSpec<Float>?
+    snapAnimationSpec: AnimationSpec<Float>?,
 ): Velocity {
     // Check if the app bar is completely collapsed/expanded. If so, no need to settle the app bar,
     // and just return Zero Velocity.
@@ -158,17 +162,16 @@ private suspend fun settleAppBar(
         AnimationState(
             initialValue = 0f,
             initialVelocity = velocity,
-        )
-            .animateDecay(flingAnimationSpec) {
-                val delta = value - lastValue
-                val initialHeightOffset = state.heightOffset
-                state.heightOffset = initialHeightOffset + delta
-                val consumed = abs(initialHeightOffset - state.heightOffset)
-                lastValue = value
-                remainingVelocity = this.velocity
-                // avoid rounding errors and stop if anything is unconsumed
-                if (abs(delta - consumed) > 0.5f) this.cancelAnimation()
-            }
+        ).animateDecay(flingAnimationSpec) {
+            val delta = value - lastValue
+            val initialHeightOffset = state.heightOffset
+            state.heightOffset = initialHeightOffset + delta
+            val consumed = abs(initialHeightOffset - state.heightOffset)
+            lastValue = value
+            remainingVelocity = this.velocity
+            // avoid rounding errors and stop if anything is unconsumed
+            if (abs(delta - consumed) > 0.5f) this.cancelAnimation()
+        }
     }
     // Snap if animation specs were provided.
     if (snapAnimationSpec != null) {
@@ -181,7 +184,7 @@ private suspend fun settleAppBar(
                 } else {
                     state.heightOffsetLimit
                 },
-                animationSpec = snapAnimationSpec
+                animationSpec = snapAnimationSpec,
             ) { state.heightOffset = value }
         }
     }

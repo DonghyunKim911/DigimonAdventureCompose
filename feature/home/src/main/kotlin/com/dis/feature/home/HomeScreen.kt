@@ -52,7 +52,6 @@ fun HomeScreenRoot(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel<HomeViewModel>(),
 ) {
-
     val state by viewModel.state.collectAsStateWithLifecycle()
     val lazyGridState = rememberLazyGridState()
 
@@ -62,7 +61,6 @@ fun HomeScreenRoot(
                 navigateToDigimonDetail(event.id)
             }
         }
-
     }
 
     HomeScreen(
@@ -71,7 +69,6 @@ fun HomeScreenRoot(
         onAction = viewModel::onAction,
         modifier = modifier,
     )
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,16 +81,18 @@ private fun HomeScreen(
     threshold: Int = 8,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Background)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(Background),
     ) {
         TopAppBar(
             title = {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier =
+                        Modifier
+                            .fillMaxWidth(),
                 ) {
                     Text(
                         text = "Digimon Adventure",
@@ -102,31 +101,35 @@ private fun HomeScreen(
                 }
             },
             actions = {
-                IconButton(onClick = {  }) {
+                IconButton(onClick = { }) {
                     Icon(
                         imageVector = Icons.Default.Menu,
                         contentDescription = "Menu",
                     )
                 }
-            }
+            },
         )
 
         Box {
             val digimons = state.digimonList
 
-            val shouldLoadMore = remember(
-                lazyGridState,
-                state.digimonList.size,
-            ) {
-                derivedStateOf {
-                    val totalItemsCount = lazyGridState.layoutInfo.totalItemsCount
-                    val lastVisibleItemIndex = lazyGridState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-                    lastVisibleItemIndex >= (totalItemsCount - threshold) &&
+            val shouldLoadMore =
+                remember(
+                    lazyGridState,
+                    state.digimonList.size,
+                ) {
+                    derivedStateOf {
+                        val totalItemsCount = lazyGridState.layoutInfo.totalItemsCount
+                        val lastVisibleItemIndex =
+                            lazyGridState.layoutInfo.visibleItemsInfo
+                                .lastOrNull()
+                                ?.index ?: 0
+                        lastVisibleItemIndex >= (totalItemsCount - threshold) &&
                             !state.isLoading &&
                             !state.isLastPageReached &&
                             digimons.isNotEmpty()
+                    }
                 }
-            }
 
             LaunchedEffect(shouldLoadMore) {
                 snapshotFlow { shouldLoadMore.value }
@@ -144,7 +147,7 @@ private fun HomeScreen(
             ) {
                 items(
                     items = digimons,
-                    key = { digimon -> digimon.id }
+                    key = { digimon -> digimon.id },
                 ) { digimon ->
 
                     DigimonItem(
@@ -153,17 +156,18 @@ private fun HomeScreen(
                         id = digimon.id,
                         onClick = { id ->
                             onAction(HomeAction.OnDigimonClick(id))
-                        }
+                        },
                     )
                 }
 
                 if (state.isLoading && digimons.isNotEmpty()) {
                     item(span = { GridItemSpan(2) }) {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator(
                                 color = Color.Black,
@@ -171,7 +175,6 @@ private fun HomeScreen(
                         }
                     }
                 }
-
             }
 
             if (state.isLoading) {
@@ -182,7 +185,6 @@ private fun HomeScreen(
             }
         }
     }
-
 }
 
 @Preview
@@ -192,10 +194,7 @@ private fun HomeScreenPreview() {
         HomeScreen(
             state = HomeUiState(),
             lazyGridState = rememberLazyGridState(),
-            onAction = { }
+            onAction = { },
         )
     }
 }
-
-
-

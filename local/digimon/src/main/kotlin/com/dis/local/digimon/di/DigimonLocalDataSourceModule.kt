@@ -11,9 +11,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DigimonLocalDataSourceModule {
-
     @Binds
     @Singleton
     abstract fun bindsDigimonLocalDataSource(digimonLocalDataSourceImpl: DigimonLocalDataSourceImpl): DigimonLocalDataSource
-
 }
