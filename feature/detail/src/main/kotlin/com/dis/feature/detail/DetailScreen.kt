@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -64,12 +65,14 @@ import com.dis.presentation.detail.DetailEvent
 import com.dis.presentation.detail.DetailUiState
 import com.dis.presentation.detail.DetailViewModel
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import java.util.Locale
 
 @Composable
 fun DetailScreenRoot(
     id: Int,
     onBack: () -> Unit,
+    onNavigateToSkillList: (List<SkillModel?>) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DetailViewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory>(
         creationCallback = { factory -> factory.create(digimonId = id) }
@@ -80,6 +83,9 @@ fun DetailScreenRoot(
     ObserveAsEvents(viewModel.eventChannel) { event ->
         when (event) {
             is DetailEvent.NavigateBack -> onBack()
+            is DetailEvent.NavigateToSkillList -> {
+                onNavigateToSkillList(event.skills)
+            }
         }
 
     }
@@ -169,7 +175,8 @@ private fun DetailScreen(
             state.digimon?.let { digimon ->
                 DigimonContent(
                     scrollBehavior = scrollBehavior,
-                    digimon = digimon
+                    digimon = digimon,
+                    onAction = onAction,
                 )
             } ?: run {
                 if (state.isError) {
@@ -196,7 +203,8 @@ private fun DetailScreen(
 @Composable
 private fun DigimonContent(
     scrollBehavior: TopAppBarScrollBehavior,
-    digimon: DigimonModel
+    digimon: DigimonModel,
+    onAction: (DetailAction) -> Unit,
 ) {
 
     val scrollState = rememberScrollState()
@@ -243,17 +251,17 @@ private fun DigimonContent(
                 modifier = Modifier
                     .size(30.dp)
                     .clickable {
-                    if (isSpeaking) {
-                        controller.stop()
-                    } else {
-                        controller.speak(
-                            text = digimon.description.first()?.description.toString(),
-                            locale = Locale.US,
-                            rate = 1.0f,
-                            pitch = 1.0f,
-                        )
-                    }
-                },
+                        if (isSpeaking) {
+                            controller.stop()
+                        } else {
+                            controller.speak(
+                                text = digimon.description.first()?.description.toString(),
+                                locale = Locale.US,
+                                rate = 1.0f,
+                                pitch = 1.0f,
+                            )
+                        }
+                    },
             )
         }
 
@@ -272,7 +280,10 @@ private fun DigimonContent(
 
         Spacer(Modifier.height(8.dp))
 
-        DigimonSkills(digimon.skills)
+        DigimonSkills(
+            skills = digimon.skills,
+            onAction = onAction,
+        )
 
         Spacer(Modifier.height(8.dp))
 
@@ -367,7 +378,8 @@ private fun DigimonFieldContent(
 
 @Composable
 fun DigimonSkills(
-    skills: ImmutableList<SkillModel?>
+    skills: ImmutableList<SkillModel?>,
+    onAction: (DetailAction) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -388,9 +400,7 @@ fun DigimonSkills(
                     Spacer(Modifier.height(8.dp))
                     SkillItem(
                         name = skill.skill ?: "",
-                        onClick = {
-
-                        },
+                        description = skill.description ?: "",
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp)
@@ -414,9 +424,7 @@ fun DigimonSkills(
                         color = Color(color = 0xFF6EA4E8),
                         shape = RoundedCornerShape(6.dp)
                     )
-                    .clickable {
-
-                    },
+                    .clickable { onAction(DetailAction.OnSeeSkillAllClick(skills)) },
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -468,7 +476,8 @@ private fun DigimonInfoPreview() {
                     origin = "reference_book",
                 )
             )
-        )
+        ),
+        onAction = { DetailAction.OnSeeSkillAllClick(skills = persistentListOf()) },
     )
 }
 

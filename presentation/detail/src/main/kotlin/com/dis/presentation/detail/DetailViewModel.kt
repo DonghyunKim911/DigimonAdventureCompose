@@ -48,6 +48,7 @@ class DetailViewModel @AssistedInject constructor(
         when (action) {
             DetailAction.OnBack -> _eventChannel.trySend(DetailEvent.NavigateBack)
             DetailAction.OnFavoriteClick -> onFavoriteClick()
+            is DetailAction.OnSeeSkillAllClick -> _eventChannel.trySend(DetailEvent.NavigateToSkillList(action.skills))
         }
     }
 

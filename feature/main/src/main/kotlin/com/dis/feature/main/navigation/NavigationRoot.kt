@@ -26,6 +26,7 @@ import com.dis.core.navigation.BottomBarScreenSaver
 import com.dis.core.navigation.BottomRoute
 import com.dis.core.navigation.Route
 import com.dis.core.navigation.bottomBarItems
+import com.dis.feature.detail.DetailSKillListScreenRoot
 import com.dis.feature.detail.DetailScreenRoot
 import com.dis.feature.home.HomeScreenRoot
 
@@ -72,6 +73,17 @@ fun NavigationRoot() {
                 entry<Route.Detail> { key ->
                     DetailScreenRoot(
                         id = key.id,
+                        onBack = { backstack.removeLastOrNull() },
+                        onNavigateToSkillList = { skills ->
+                            backstack.add(Route.DetailSkillList(skills))
+                        },
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+
+                entry<Route.DetailSkillList> { key ->
+                    DetailSKillListScreenRoot(
+                        skills = key.skills,
                         onBack = { backstack.removeLastOrNull() },
                         modifier = Modifier.padding(innerPadding)
                     )
