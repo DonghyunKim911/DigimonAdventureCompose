@@ -37,54 +37,61 @@ fun DigimonItem(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Card(
-            modifier = modifier
-                .padding(6.dp)
-                .fillMaxWidth()
-                .clickable { onClick(id) },
+            modifier =
+                modifier
+                    .padding(6.dp)
+                    .fillMaxWidth()
+                    .clickable { onClick(id) },
             shape = RoundedCornerShape(14.dp),
-            colors = CardColors(
-                containerColor = Color.White,
-                contentColor = Color.White,
-                disabledContainerColor = Color.White,
-                disabledContentColor = Color.White,
-            ),
+            colors =
+                CardColors(
+                    containerColor = Color.White,
+                    contentColor = Color.White,
+                    disabledContainerColor = Color.White,
+                    disabledContentColor = Color.White,
+                ),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         ) {
             AsyncImage(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .size(200.dp)
-                    .background(color = Color.White),
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .size(200.dp)
+                        .background(color = Color.White),
                 contentScale = ContentScale.FillBounds,
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(imageUrl)
-                    .build(),
+                model =
+                    ImageRequest
+                        .Builder(LocalContext.current)
+                        .data(imageUrl)
+                        .build(),
                 contentDescription = "Digimon Card Image",
-                onSuccess = { success -> }
+                onSuccess = { success -> },
             )
         }
 
         BasicText(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(12.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(12.dp),
             text = name,
-            autoSize = TextAutoSize.StepBased(
-                maxFontSize = 16.sp
-            ),
+            autoSize =
+                TextAutoSize.StepBased(
+                    maxFontSize = 16.sp,
+                ),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            style = TextStyle(
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold,
-            ),
+            style =
+                TextStyle(
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                ),
             color = { Color.Black },
         )
     }
-
 }
 
 @Preview
@@ -96,12 +103,13 @@ private fun DigimonCardPreview() {
             name = "Digimon",
             id = 0,
             onClick = { },
-            modifier = Modifier
-                .size(40.dp)
-                .background(
-                    color = Color.White,
-                    shape = RoundedCornerShape(16.dp)
-                )
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(16.dp),
+                    ),
         )
     }
 }

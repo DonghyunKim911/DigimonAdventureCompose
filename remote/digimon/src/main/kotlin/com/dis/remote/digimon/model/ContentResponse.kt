@@ -18,5 +18,5 @@ data class ContentResponse(
     @SerialName("name")
     val name: String?,
     @SerialName("image")
-    val image: String?
+    val image: String?,
 )

@@ -8,5 +8,5 @@ import javax.annotation.concurrent.Immutable
 data class DescriptionResponse(
     val description: String?,
     val language: String?,
-    val origin: String?
+    val origin: String?,
 )

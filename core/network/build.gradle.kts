@@ -28,14 +28,11 @@ android {
             isMinifyEnabled = true
             buildConfigField("String", "DIGIMON_BASE_URL", "\"$apiUrl\"")
         }
-
     }
-
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-
 }

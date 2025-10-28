@@ -74,9 +74,10 @@ fun DetailScreenRoot(
     onBack: () -> Unit,
     onNavigateToSkillList: (List<SkillModel?>) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: DetailViewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory>(
-        creationCallback = { factory -> factory.create(digimonId = id) }
-    ),
+    viewModel: DetailViewModel =
+        hiltViewModel<DetailViewModel, DetailViewModel.Factory>(
+            creationCallback = { factory -> factory.create(digimonId = id) },
+        ),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -87,15 +88,13 @@ fun DetailScreenRoot(
                 onNavigateToSkillList(event.skills)
             }
         }
-
     }
 
     DetailScreen(
         state = state,
         onAction = viewModel::onAction,
-        modifier = modifier
+        modifier = modifier,
     )
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -108,38 +107,48 @@ private fun DetailScreen(
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Box(
-        modifier = modifier
-            .fillMaxSize()
+        modifier =
+            modifier
+                .fillMaxSize(),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(scrollBehavior.nestedScrollConnection),
         ) {
             CollapsingAppBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
                 backgroundColor = Background,
                 title = state.digimon?.name.orEmpty(),
-                imageUrl = state.digimon?.image?.first()?.href.orEmpty(),
+                imageUrl =
+                    state.digimon
+                        ?.image
+                        ?.first()
+                        ?.href
+                        .orEmpty(),
                 scrollBehavior = scrollBehavior,
                 toolbarContent = { alpha, title ->
                     Image(
-                        modifier = Modifier
-                            .align(Alignment.CenterStart)
-                            .padding(start = 8.dp)
-                            .clickable {
-                                onAction(DetailAction.OnBack)
-                            },
+                        modifier =
+                            Modifier
+                                .align(Alignment.CenterStart)
+                                .padding(start = 8.dp)
+                                .clickable {
+                                    onAction(DetailAction.OnBack)
+                                },
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
                     )
 
                     Text(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .alpha(alpha),
+                        modifier =
+                            Modifier
+                                .align(Alignment.Center)
+                                .alpha(alpha),
                         text = title,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
@@ -149,25 +158,27 @@ private fun DetailScreen(
                         Icon(
                             imageVector = if (digimonModel.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                             contentDescription = "Favorite",
-                            modifier = Modifier
-                                .align(Alignment.CenterEnd)
-                                .padding(end = 8.dp)
-                                .clickable {
-                                    onAction(DetailAction.OnFavoriteClick)
-                                },
+                            modifier =
+                                Modifier
+                                    .align(Alignment.CenterEnd)
+                                    .padding(end = 8.dp)
+                                    .clickable {
+                                        onAction(DetailAction.OnFavoriteClick)
+                                    },
                             tint = if (digimonModel.isFavorite) Color.Red else Color.Unspecified,
                         )
                     }
                 },
                 collapsingContent = { alpha, imageUrl ->
                     AsyncImage(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(278.dp)
-                            .alpha(alpha),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(278.dp)
+                                .alpha(alpha),
                         model = imageUrl,
                         contentDescription = "Digimon Image",
-                        contentScale = ContentScale.FillBounds
+                        contentScale = ContentScale.FillBounds,
                     )
                 },
             )
@@ -188,12 +199,11 @@ private fun DetailScreen(
                     )
                 }
             }
-
         }
 
         if (state.isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }
@@ -206,35 +216,36 @@ private fun DigimonContent(
     digimon: DigimonModel,
     onAction: (DetailAction) -> Unit,
 ) {
-
     val scrollState = rememberScrollState()
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Background)
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .verticalScroll(scrollState)
-            .padding(8.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(Background)
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .verticalScroll(scrollState)
+                .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-
             val context = LocalContext.current
 
             var isSpeaking by remember { mutableStateOf(false) }
-            val controller = remember {
-                TtsController(
-                    context = context,
-                    onSpeakingChanged = { speaking ->
-                        isSpeaking = speaking
-                    }
-                )
-            }
+            val controller =
+                remember {
+                    TtsController(
+                        context = context,
+                        onSpeakingChanged = { speaking ->
+                            isSpeaking = speaking
+                        },
+                    )
+                }
 
             DisposableEffect(Unit) {
                 onDispose { controller.release() }
@@ -245,29 +256,34 @@ private fun DigimonContent(
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
             )
-            
+
             TtsSpeakingIndicator(
                 isSpeaking = isSpeaking,
-                modifier = Modifier
-                    .size(30.dp)
-                    .clickable {
-                        if (isSpeaking) {
-                            controller.stop()
-                        } else {
-                            controller.speak(
-                                text = digimon.description.first()?.description.toString(),
-                                locale = Locale.US,
-                                rate = 1.0f,
-                                pitch = 1.0f,
-                            )
-                        }
-                    },
+                modifier =
+                    Modifier
+                        .size(30.dp)
+                        .clickable {
+                            if (isSpeaking) {
+                                controller.stop()
+                            } else {
+                                controller.speak(
+                                    text =
+                                        digimon.description
+                                            .first()
+                                            ?.description
+                                            .toString(),
+                                    locale = Locale.US,
+                                    rate = 1.0f,
+                                    pitch = 1.0f,
+                                )
+                            }
+                        },
             )
         }
 
         Text(
             text = digimon.description.firstOrNull()?.description ?: "",
-            fontSize = 14.sp
+            fontSize = 14.sp,
         )
 
         DigimonInfo(
@@ -288,9 +304,8 @@ private fun DigimonContent(
         Spacer(Modifier.height(8.dp))
 
         DigimonCarousel(
-            images = digimon.nextEvolution.mapNotNull { it?.image }
+            images = digimon.nextEvolution.mapNotNull { it?.image },
         )
-
     }
 }
 
@@ -301,8 +316,9 @@ private fun DigimonInfo(
     type: String,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         DigimonInfoItem(
@@ -324,7 +340,7 @@ private fun DigimonInfo(
 private fun DigimonInfoItem(
     category: String,
     content: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
@@ -343,12 +359,11 @@ private fun DigimonInfoItem(
 }
 
 @Composable
-private fun DigimonFieldContent(
-    field: ImmutableList<FieldModel?>
-) {
+private fun DigimonFieldContent(field: ImmutableList<FieldModel?>) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
@@ -382,8 +397,9 @@ fun DigimonSkills(
     onAction: (DetailAction) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
@@ -401,13 +417,14 @@ fun DigimonSkills(
                     SkillItem(
                         name = skill.skill ?: "",
                         description = skill.description ?: "",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(48.dp)
-                            .background(
-                                color = Color(color = 0xFFE8EDF2),
-                                shape = RoundedCornerShape(6.dp)
-                            )
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(48.dp)
+                                .background(
+                                    color = Color(color = 0xFFE8EDF2),
+                                    shape = RoundedCornerShape(6.dp),
+                                ),
                     )
                 }
             }
@@ -417,14 +434,14 @@ fun DigimonSkills(
             Spacer(Modifier.height(8.dp))
 
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp)
-                    .background(
-                        color = Color(color = 0xFF6EA4E8),
-                        shape = RoundedCornerShape(6.dp)
-                    )
-                    .clickable { onAction(DetailAction.OnSeeSkillAllClick(skills)) },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .background(
+                            color = Color(color = 0xFF6EA4E8),
+                            shape = RoundedCornerShape(6.dp),
+                        ).clickable { onAction(DetailAction.OnSeeSkillAllClick(skills)) },
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -433,19 +450,16 @@ fun DigimonSkills(
                     fontWeight = FontWeight.Bold,
                 )
             }
-
         }
-
     }
 }
 
 @Composable
-private fun DigimonCarousel(
-    images: List<String>
-) {
+private fun DigimonCarousel(images: List<String>) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
@@ -466,17 +480,19 @@ private fun DigimonCarousel(
 private fun DigimonInfoPreview() {
     DigimonContent(
         scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
-        digimon = DigimonModel(
-            name = "Agumon",
-            id = 1,
-            description = listOf(
-                DescriptionModel(
-                    description = "A Reptile Digimon with an appearance resembling a small dinosaur, it has grown and become able to walk on two legs. Its strength is weak as it is still in the process of growing, but it has a fearless and rather ferocious personality. Hard, sharp claws grow from both its hands and feet, and their power is displayed in battle. It also foreshadows an evolution into a great and powerful Digimon. Its Special Move is spitting a fiery breath from its mouth to attack the opponent (Baby Flame).",
-                    language = "en_us",
-                    origin = "reference_book",
-                )
-            )
-        ),
+        digimon =
+            DigimonModel(
+                name = "Agumon",
+                id = 1,
+                description =
+                    listOf(
+                        DescriptionModel(
+                            description = "A Reptile Digimon with an appearance resembling a small dinosaur, it has grown and become able to walk on two legs. Its strength is weak as it is still in the process of growing, but it has a fearless and rather ferocious personality. Hard, sharp claws grow from both its hands and feet, and their power is displayed in battle. It also foreshadows an evolution into a great and powerful Digimon. Its Special Move is spitting a fiery breath from its mouth to attack the opponent (Baby Flame).",
+                            language = "en_us",
+                            origin = "reference_book",
+                        ),
+                    ),
+            ),
         onAction = { DetailAction.OnSeeSkillAllClick(skills = persistentListOf()) },
     )
 }

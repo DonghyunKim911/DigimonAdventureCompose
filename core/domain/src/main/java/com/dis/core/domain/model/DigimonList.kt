@@ -5,5 +5,5 @@ package com.dis.core.domain.model
  * */
 data class DigimonList(
     val content: List<Content?>?,
-    val pageable: Pageable? // Not used in this project.
+    val pageable: Pageable?, // Not used in this project.
 )

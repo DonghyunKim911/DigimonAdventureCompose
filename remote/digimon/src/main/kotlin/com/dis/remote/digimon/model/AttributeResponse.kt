@@ -7,5 +7,5 @@ import javax.annotation.concurrent.Immutable
 @Serializable
 data class AttributeResponse(
     val attribute: String?,
-    val id: Int?
+    val id: Int?,
 )

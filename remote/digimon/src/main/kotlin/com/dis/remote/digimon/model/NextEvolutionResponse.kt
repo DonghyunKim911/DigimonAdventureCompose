@@ -16,5 +16,5 @@ data class NextEvolutionResponse(
     @SerialName("image")
     val image: String?,
     @SerialName("url")
-    val url: String?
+    val url: String?,
 )

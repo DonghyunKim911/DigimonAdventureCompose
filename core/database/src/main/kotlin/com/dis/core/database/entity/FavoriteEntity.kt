@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 @Entity
 data class FavoriteEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: Int
+    val id: Int,
 )

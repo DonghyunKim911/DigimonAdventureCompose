@@ -8,21 +8,17 @@ import com.dis.remote.digimon.api.DigimonApi
 import com.dis.remote.digimon.mapper.toData
 import javax.inject.Inject
 
-class DigimonRemoteDataSourceImpl @Inject constructor(
-    private val digimonApi: DigimonApi
-): DigimonRemoteDataSource {
+class DigimonRemoteDataSourceImpl
+    @Inject
+    constructor(
+        private val digimonApi: DigimonApi,
+    ) : DigimonRemoteDataSource {
+        @WorkerThread
+        override suspend fun getDigimonList(
+            page: Int,
+            pageSize: Int,
+        ): DigimonListData = digimonApi.getDigimonList(page, pageSize).getOrThrow().toData()
 
-    @WorkerThread
-    override suspend fun getDigimonList(
-        page: Int,
-        pageSize: Int
-    ): DigimonListData {
-        return digimonApi.getDigimonList(page, pageSize).getOrThrow().toData()
+        @WorkerThread
+        override suspend fun getDigimonDetail(id: Int): DigimonData = digimonApi.getDigimon(id).getOrThrow().toData()
     }
-
-    @WorkerThread
-    override suspend fun getDigimonDetail(id: Int): DigimonData {
-        return digimonApi.getDigimon(id).getOrThrow().toData()
-    }
-
-}

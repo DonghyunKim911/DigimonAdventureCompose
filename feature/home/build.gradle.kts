@@ -16,7 +16,6 @@ dependencies {
     implementation(projects.presentation.home)
     implementation(projects.core.presentation)
 
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

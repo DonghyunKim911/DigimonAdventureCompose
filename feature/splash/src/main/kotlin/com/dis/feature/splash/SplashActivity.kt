@@ -11,8 +11,7 @@ import com.dis.core.ui.designsystem.theme.DigimonAdventureComposeTheme
 import com.dis.feature.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity: ComponentActivity() {
-
+class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -22,5 +21,4 @@ class SplashActivity: ComponentActivity() {
             }
         }
     }
-
 }

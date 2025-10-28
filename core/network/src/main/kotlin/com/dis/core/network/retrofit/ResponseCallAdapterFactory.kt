@@ -33,7 +33,7 @@ class ResponseCallAdapterFactory : CallAdapter.Factory() {
     override fun get(
         returnType: Type,
         annotations: Array<out Annotation>,
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): CallAdapter<*, *>? {
         val rawType = getRawType(returnType)
 
@@ -41,7 +41,7 @@ class ResponseCallAdapterFactory : CallAdapter.Factory() {
             val name = parseTypeName(returnType)
             throw IllegalArgumentException(
                 "Return type must be parameterized as " +
-                        "$name<Foo> or $name<out Foo>"
+                    "$name<Foo> or $name<out Foo>",
             )
         }
 
@@ -49,10 +49,9 @@ class ResponseCallAdapterFactory : CallAdapter.Factory() {
             Call::class.java -> apiResponseAdapter(returnType)
             else -> null
         }
-
     }
 
-    private fun apiResponseAdapter(returnType: ParameterizedType) : CallAdapter<Type, out Call<out Any>>? {
+    private fun apiResponseAdapter(returnType: ParameterizedType): CallAdapter<Type, out Call<out Any>>? {
         val wrapperType = getParameterUpperBound(0, returnType)
 
         return when (getRawType(wrapperType)) {
@@ -68,20 +67,20 @@ class ResponseCallAdapterFactory : CallAdapter.Factory() {
     @Suppress("NOTHING_TO_INLINE")
     private inline fun extractReturnType(
         wrapperType: Type,
-        returnType: ParameterizedType
+        returnType: ParameterizedType,
     ): Type {
         if (wrapperType !is ParameterizedType) {
             val name = parseTypeName(returnType)
             throw IllegalArgumentException(
-                "Return type must be parameterized as $name<ResponseBody>"
+                "Return type must be parameterized as $name<ResponseBody>",
             )
         }
         return getParameterUpperBound(0, wrapperType)
     }
-
 }
 
 private fun parseTypeName(type: Type) =
-    type.toString()
+    type
+        .toString()
         .split(".")
         .last()

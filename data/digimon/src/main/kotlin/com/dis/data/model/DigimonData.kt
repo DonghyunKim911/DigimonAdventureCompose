@@ -13,5 +13,5 @@ data class DigimonData(
     val releaseDate: String,
     val skills: List<SkillData?>,
     val type: List<TypeData?>,
-    val xAntibody: Boolean
+    val xAntibody: Boolean,
 )

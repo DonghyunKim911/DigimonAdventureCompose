@@ -20,5 +20,5 @@ data class DigimonEntity(
     val releaseDate: String,
     val skills: List<SkillEntity?>,
     val type: List<TypeEntity?>,
-    val xAntibody: Boolean
+    val xAntibody: Boolean,
 )

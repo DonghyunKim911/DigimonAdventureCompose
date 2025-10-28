@@ -12,5 +12,5 @@ data class FieldResponse(
     @SerialName("id")
     val id: Int?,
     @SerialName("image")
-    val image: String?
+    val image: String?,
 )

@@ -10,5 +10,5 @@ data class LevelResponse(
     @SerialName("id")
     val id: Int?,
     @SerialName("level")
-    val level: String?
+    val level: String?,
 )

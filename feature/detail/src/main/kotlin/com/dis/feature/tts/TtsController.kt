@@ -13,7 +13,7 @@ import java.util.Locale
 
 class TtsController(
     private val context: Context,
-    private val onSpeakingChanged: (Boolean) -> Unit = {}
+    private val onSpeakingChanged: (Boolean) -> Unit = {},
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -29,7 +29,7 @@ class TtsController(
         text: String,
         locale: Locale = Locale.KOREAN,
         rate: Float = 1.0f,
-        pitch: Float = 1.0f
+        pitch: Float = 1.0f,
     ) {
         if (released) return
         currentLocale = locale
@@ -37,12 +37,13 @@ class TtsController(
         currentPitch = pitch
 
         if (tts == null) {
-            tts = TextToSpeech(context) { status ->
-                if (status == TextToSpeech.SUCCESS && !released) {
-                    setupTts(locale, rate, pitch)
-                    internalSpeak(text)
+            tts =
+                TextToSpeech(context) { status ->
+                    if (status == TextToSpeech.SUCCESS && !released) {
+                        setupTts(locale, rate, pitch)
+                        internalSpeak(text)
+                    }
                 }
-            }
         } else {
             if (tts?.language != locale) {
                 tts?.language = locale
@@ -72,28 +73,36 @@ class TtsController(
         }
     }
 
-    private fun setupTts(locale: Locale, rate: Float, pitch: Float) {
+    private fun setupTts(
+        locale: Locale,
+        rate: Float,
+        pitch: Float,
+    ) {
         tts?.apply {
             language = locale
             setSpeechRate(rate)
             setPitch(pitch)
-            setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-                override fun onStart(utteranceId: String?) {
-                    if (released || !scope.isActive) return
-                    scope.launch { notifySpeaking(true) }
-                }
-                override fun onDone(utteranceId: String?) {
-                    if (released || !scope.isActive) return
-                    scope.launch {
-                        if (tts?.isSpeaking != true) notifySpeaking(false)
+            setOnUtteranceProgressListener(
+                object : UtteranceProgressListener() {
+                    override fun onStart(utteranceId: String?) {
+                        if (released || !scope.isActive) return
+                        scope.launch { notifySpeaking(true) }
                     }
-                }
-                @Deprecated("Deprecated in Java")
-                override fun onError(utteranceId: String?) {
-                    if (released || !scope.isActive) return
-                    scope.launch { notifySpeaking(false) }
-                }
-            })
+
+                    override fun onDone(utteranceId: String?) {
+                        if (released || !scope.isActive) return
+                        scope.launch {
+                            if (tts?.isSpeaking != true) notifySpeaking(false)
+                        }
+                    }
+
+                    @Deprecated("Deprecated in Java")
+                    override fun onError(utteranceId: String?) {
+                        if (released || !scope.isActive) return
+                        scope.launch { notifySpeaking(false) }
+                    }
+                },
+            )
         }
     }
 

@@ -35,7 +35,7 @@ fun NavigationRoot() {
     val backstack = rememberNavBackStack<BottomRoute>(BottomRoute.Home)
 
     var currentBottomBarScreen: BottomRoute by rememberSaveable(
-        stateSaver = BottomBarScreenSaver
+        stateSaver = BottomBarScreenSaver,
     ) { mutableStateOf(BottomRoute.Home) }
 
     Scaffold(
@@ -50,55 +50,53 @@ fun NavigationRoot() {
                 }
             }
         },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
         NavDisplay(
             backStack = backstack,
             onBack = { backstack.removeLastOrNull() },
-            entryDecorators = listOf(
-                rememberSceneSetupNavEntryDecorator(),
-                rememberSavedStateNavEntryDecorator(),
-                rememberViewModelStoreNavEntryDecorator(),
-            ),
-            entryProvider = entryProvider {
-                entry<BottomRoute.Home> {
-                    HomeScreenRoot(
-                        navigateToDigimonDetail = { id ->
-                            backstack.add(Route.Detail(id))
-                        },
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            entryDecorators =
+                listOf(
+                    rememberSceneSetupNavEntryDecorator(),
+                    rememberSavedStateNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator(),
+                ),
+            entryProvider =
+                entryProvider {
+                    entry<BottomRoute.Home> {
+                        HomeScreenRoot(
+                            navigateToDigimonDetail = { id ->
+                                backstack.add(Route.Detail(id))
+                            },
+                            modifier = Modifier.padding(innerPadding),
+                        )
+                    }
 
-                entry<Route.Detail> { key ->
-                    DetailScreenRoot(
-                        id = key.id,
-                        onBack = { backstack.removeLastOrNull() },
-                        onNavigateToSkillList = { skills ->
-                            backstack.add(Route.DetailSkillList(skills))
-                        },
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                    entry<Route.Detail> { key ->
+                        DetailScreenRoot(
+                            id = key.id,
+                            onBack = { backstack.removeLastOrNull() },
+                            onNavigateToSkillList = { skills ->
+                                backstack.add(Route.DetailSkillList(skills))
+                            },
+                            modifier = Modifier.padding(innerPadding),
+                        )
+                    }
 
-                entry<Route.DetailSkillList> { key ->
-                    DetailSKillListScreenRoot(
-                        skills = key.skills,
-                        onBack = { backstack.removeLastOrNull() },
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                    entry<Route.DetailSkillList> { key ->
+                        DetailSKillListScreenRoot(
+                            skills = key.skills,
+                            onBack = { backstack.removeLastOrNull() },
+                            modifier = Modifier.padding(innerPadding),
+                        )
+                    }
 
-                entry<BottomRoute.Search> {
+                    entry<BottomRoute.Search> {
+                    }
 
-                }
-
-                entry<BottomRoute.Bookmark> {
-
-                }
-            }
+                    entry<BottomRoute.Bookmark> {
+                    }
+                },
         )
     }
-
-
 }

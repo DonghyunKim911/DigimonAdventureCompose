@@ -7,5 +7,5 @@ import com.core.presentation.model.ContentModel
 data class HomeUiState(
     val isLoading: Boolean = false,
     val digimonList: List<ContentModel> = emptyList(),
-    val isLastPageReached: Boolean = false
+    val isLastPageReached: Boolean = false,
 )

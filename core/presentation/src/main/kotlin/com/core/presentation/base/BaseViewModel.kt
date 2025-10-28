@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
-abstract class BaseViewModel<ACTION: ViewAction, EVENT: ViewEvent>: ViewModel() {
-
+abstract class BaseViewModel<ACTION : ViewAction, EVENT : ViewEvent> : ViewModel() {
     protected val _eventChannel = Channel<EVENT>()
     val eventChannel = _eventChannel.receiveAsFlow()
 
@@ -15,5 +14,4 @@ abstract class BaseViewModel<ACTION: ViewAction, EVENT: ViewEvent>: ViewModel() 
         _eventChannel.close()
         super.onCleared()
     }
-
 }

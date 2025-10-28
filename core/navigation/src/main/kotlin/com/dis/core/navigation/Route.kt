@@ -13,65 +13,66 @@ import androidx.navigation3.runtime.NavKey
 import com.core.presentation.model.SkillModel
 import kotlinx.serialization.Serializable
 
-sealed interface Route: NavKey {
+sealed interface Route : NavKey {
+    @Serializable
+    data object Splash : Route
 
     @Serializable
-    data object Splash: Route
+    data object Main : Route
 
     @Serializable
-    data object Main: Route
+    data class Detail(
+        val id: Int,
+    ) : Route
 
     @Serializable
-    data class Detail(val id: Int): Route
-
-    @Serializable
-    data class DetailSkillList(val skills: List<SkillModel?>): Route
-
+    data class DetailSkillList(
+        val skills: List<SkillModel?>,
+    ) : Route
 }
 
-sealed interface BottomRoute: NavKey {
-
+sealed interface BottomRoute : NavKey {
     val icon: ImageVector
 
     @Serializable
-    data object Home: BottomRoute {
+    data object Home : BottomRoute {
         override val icon = Icons.Default.Home
     }
 
     @Serializable
-    data object Search: BottomRoute {
+    data object Search : BottomRoute {
         override val icon = Icons.Default.Search
     }
 
     @Serializable
-    data object Bookmark: BottomRoute {
+    data object Bookmark : BottomRoute {
         override val icon = Icons.Default.Bookmark
     }
-
 }
 
-val bottomBarItems = listOf(
-    BottomRoute.Home,
-    BottomRoute.Search,
-    BottomRoute.Bookmark,
-)
+val bottomBarItems =
+    listOf(
+        BottomRoute.Home,
+        BottomRoute.Search,
+        BottomRoute.Bookmark,
+    )
 
-val BottomBarScreenSaver = Saver<BottomRoute, String>(
-    save = { it::class.java.name ?: "Unknown" },
-    restore = {
-        when(it) {
-            BottomRoute.Home::class.java.name -> BottomRoute.Home
-            BottomRoute.Search::class.java.name -> BottomRoute.Search
-            BottomRoute.Bookmark::class.java.name -> BottomRoute.Bookmark
-            else -> BottomRoute.Home
-        }
-    }
-)
-
+val BottomBarScreenSaver =
+    Saver<BottomRoute, String>(
+        save = { it::class.java.name ?: "Unknown" },
+        restore = {
+            when (it) {
+                BottomRoute.Home::class.java.name -> BottomRoute.Home
+                BottomRoute.Search::class.java.name -> BottomRoute.Search
+                BottomRoute.Bookmark::class.java.name -> BottomRoute.Bookmark
+                else -> BottomRoute.Home
+            }
+        },
+    )
 
 fun Route.startActivity(
     packageContext: Context,
-    activityClass: Class<out Activity>
+    activityClass: Class<out Activity>,
 ) {
     val intent = Intent(packageContext, activityClass)
     packageContext.startActivity(intent)
@@ -79,7 +80,7 @@ fun Route.startActivity(
 
 fun BottomRoute.startActivity(
     packageContext: Context,
-    activityClass: Class<out Activity>
+    activityClass: Class<out Activity>,
 ) {
     val intent = Intent(packageContext, activityClass)
     packageContext.startActivity(intent)

@@ -10,41 +10,49 @@ import java.net.SocketTimeoutException
  * source based on https://github.com/Pluu/CustomCallAdapterSample/blob/master/ApiResultCallAdapter/src/main/java/com/pluu/retrofit/adapter/ApiResult.kt
  * */
 sealed interface ApiResponse<out T> {
-    data class Success<T>(val data: T) : ApiResponse<T>
+    data class Success<T>(
+        val data: T,
+    ) : ApiResponse<T>
 
     sealed interface Failure : ApiResponse<Nothing> {
-        data class HttpError(val statusCode: Int, val message: String, val body: String) : Failure
+        data class HttpError(
+            val statusCode: Int,
+            val message: String,
+            val body: String,
+        ) : Failure
 
-        data class NetworkError(val throwable: Throwable) : Failure
+        data class NetworkError(
+            val throwable: Throwable,
+        ) : Failure
 
-        data class UnknownApiError(val throwable: Throwable) : Failure
+        data class UnknownApiError(
+            val throwable: Throwable,
+        ) : Failure
 
-        fun safeThrowable(): Throwable = when (this) {
+        fun safeThrowable(): Throwable =
+            when (this) {
+                is HttpError -> {
+                    IllegalStateException(
+                        "error code : $statusCode\n" +
+                            "message : $message\n" +
+                            "body : $body",
+                    )
+                }
 
-            is HttpError -> {
-                IllegalStateException(
-                    "error code : $statusCode\n" +
-                    "message : $message\n" +
-                    "body : $body"
-                )
-            }
-
-            is NetworkError -> {
-                if (throwable is SocketTimeoutException) {
-                    NetworkSocketTimeoutException()
-                } else {
+                is NetworkError -> {
+                    if (throwable is SocketTimeoutException) {
+                        NetworkSocketTimeoutException()
+                    } else {
 //                    if (!isNetworkConnected(Application.getContext())) {
 //                        NetworkBadConnectionException()
 //                    } else {
 //                        NetworkBadUrlException()
 //                    }
-                    NetworkBadConnectionException()
+                        NetworkBadConnectionException()
+                    }
                 }
-
+                is UnknownApiError -> throwable
             }
-            is UnknownApiError -> throwable
-        }
-
     }
 
     fun isSuccess(): Boolean = this is Success
@@ -76,7 +84,6 @@ sealed interface ApiResponse<out T> {
     companion object {
         fun <R> successOf(result: R): ApiResponse<R> = Success(result)
     }
-
 }
 
 fun ApiResponse<*>.throwOnFailure() {
@@ -87,16 +94,12 @@ fun ApiResponse<*>.throwOnSuccess() {
     if (this is ApiResponse.Success) throw IllegalStateException("Cannot be called under Success conditions.")
 }
 
-inline fun <T> ApiResponse<T>.onSuccess(
-    action: (value: T) -> Unit
-): ApiResponse<T> {
+inline fun <T> ApiResponse<T>.onSuccess(action: (value: T) -> Unit): ApiResponse<T> {
     if (isSuccess()) action(getOrThrow())
     return this
 }
 
-inline fun <T> ApiResponse<T>.onFailure(
-    action: (error: ApiResponse.Failure) -> Unit
-): ApiResponse<T> {
+inline fun <T> ApiResponse<T>.onFailure(action: (error: ApiResponse.Failure) -> Unit): ApiResponse<T> {
     if (isFailure()) action(failureOrThrow())
     return this
 }
