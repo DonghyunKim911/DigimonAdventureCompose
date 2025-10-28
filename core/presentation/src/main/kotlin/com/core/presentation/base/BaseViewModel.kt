@@ -12,7 +12,7 @@ abstract class BaseViewModel<ACTION: ViewAction, EVENT: ViewEvent>: ViewModel() 
     abstract fun onAction(action: ACTION)
 
     override fun onCleared() {
-        _eventChannel.cancel()
+        _eventChannel.close()
         super.onCleared()
     }
 

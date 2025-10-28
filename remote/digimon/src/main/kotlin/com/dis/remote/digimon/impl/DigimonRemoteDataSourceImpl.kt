@@ -1,6 +1,7 @@
 package com.dis.remote.digimon.impl
 
 import androidx.annotation.WorkerThread
+import com.dis.data.model.DigimonData
 import com.dis.data.model.DigimonListData
 import com.dis.data.remote.DigimonRemoteDataSource
 import com.dis.remote.digimon.api.DigimonApi
@@ -17,6 +18,11 @@ class DigimonRemoteDataSourceImpl @Inject constructor(
         pageSize: Int
     ): DigimonListData {
         return digimonApi.getDigimonList(page, pageSize).getOrThrow().toData()
+    }
+
+    @WorkerThread
+    override suspend fun getDigimonDetail(id: Int): DigimonData {
+        return digimonApi.getDigimon(id).getOrThrow().toData()
     }
 
 }

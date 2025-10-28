@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation3.runtime.NavKey
+import com.core.presentation.model.SkillModel
 import kotlinx.serialization.Serializable
 
 sealed interface Route: NavKey {
@@ -22,6 +23,9 @@ sealed interface Route: NavKey {
 
     @Serializable
     data class Detail(val id: Int): Route
+
+    @Serializable
+    data class DetailSkillList(val skills: List<SkillModel?>): Route
 
 }
 

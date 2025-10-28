@@ -1,5 +1,6 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Digimon
 import com.dis.data.model.AttributeData
 import com.dis.data.model.DescriptionData
 import com.dis.data.model.DigimonData
@@ -10,39 +11,38 @@ import com.dis.data.model.NextEvolutionData
 import com.dis.data.model.PriorEvolutionData
 import com.dis.data.model.SkillData
 import com.dis.data.model.TypeData
-import com.dis.domain.digimon.model.Digimon
 
 fun DigimonData.toDomain(): Digimon = Digimon(
-    attribute = attribute?.map { it?.toDomain() },
-    description = description?.map { it?.toDomain() },
-    field = field?.map { it?.toDomain() },
+    attribute = attribute.map { it?.toDomain() },
+    description = description.map { it?.toDomain() },
+    field = field.map { it?.toDomain() },
     id = id,
-    image = image?.map { it?.toDomain() },
-    level = level?.map { it?.toDomain() },
+    image = image.map { it?.toDomain() },
+    level = level.map { it?.toDomain() },
     name = name,
-    nextEvolution = nextEvolution?.map { it?.toDomain() },
-    priorEvolution = priorEvolution?.map { it?.toDomain() },
+    nextEvolution = nextEvolution.map { it?.toDomain() },
+    priorEvolution = priorEvolution.map { it?.toDomain() },
     releaseDate = releaseDate,
-    skills = skills?.map { it?.toDomain() },
-    type = type?.map { it?.toDomain() },
+    skills = skills.map { it?.toDomain() },
+    type = type.map { it?.toDomain() },
     xAntibody = xAntibody
 )
 
 fun Digimon.toData(): DigimonData = DigimonData(
-    attribute = attribute?.map {
+    attribute = attribute.map {
         AttributeData(
             attribute = it?.attribute,
             id = it?.id
         )
     },
-    description = description?.map {
+    description = description.map {
         DescriptionData(
             description = it?.description,
             language = it?.language,
             origin = it?.origin
         )
     },
-    field = field?.map {
+    field = field.map {
         FieldData(
             field = it?.field,
             id = it?.id,
@@ -50,20 +50,20 @@ fun Digimon.toData(): DigimonData = DigimonData(
         )
     },
     id = id,
-    image = image?.map {
+    image = image.map {
         ImageData(
             href = it?.href,
             transparent = it?.transparent
         )
     },
-    level = level?.map {
+    level = level.map {
         LevelData(
             id = it?.id,
             level = it?.level
         )
     },
     name = name,
-    nextEvolution = nextEvolution?.map {
+    nextEvolution = nextEvolution.map {
         NextEvolutionData(
             condition = it?.condition,
             digimon = it?.digimon,
@@ -72,7 +72,7 @@ fun Digimon.toData(): DigimonData = DigimonData(
             url = it?.url
         )
     },
-    priorEvolution = priorEvolution?.map {
+    priorEvolution = priorEvolution.map {
         PriorEvolutionData(
             condition = it?.condition,
             digimon = it?.digimon,
@@ -82,7 +82,7 @@ fun Digimon.toData(): DigimonData = DigimonData(
         )
     },
     releaseDate = releaseDate,
-    skills = skills?.map {
+    skills = skills.map {
         SkillData(
             description = it?.description,
             id = it?.id,
@@ -90,7 +90,7 @@ fun Digimon.toData(): DigimonData = DigimonData(
             translation = it?.translation
         )
     },
-    type = type?.map {
+    type = type.map {
         TypeData(
             id = it?.id,
             type = it?.type

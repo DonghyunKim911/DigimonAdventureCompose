@@ -22,10 +22,6 @@ import javax.inject.Singleton
 
 private const val DB_NAME = "digimon.db"
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class DigimonTypeConverters
-
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DatabaseModule {
@@ -34,26 +30,8 @@ internal object DatabaseModule {
     @Singleton
     fun provideDigimonDatabase(
         @ApplicationContext context: Context,
-        attributeListTypeConverter: AttributeListTypeConverter,
-        descriptionListTypeConverter: DescriptionListTypeConverter,
-        fieldListTypeConverter: FieldListTypeConverter,
-        imageListTypeConverter: ImageListTypeConverter,
-        levelListTypeConverter: LevelListTypeConverter,
-        nextEvolutionListTypeConverter: NextEvolutionListTypeConverter,
-        priorEvolutionListTypeConverter: PriorEvolutionListTypeConverter,
-        skillListTypeConverter: SkillListTypeConverter,
-        typeListTypeConverter: TypeListTypeConverter
     ): DigimonDatabase = Room
         .databaseBuilder(context, DigimonDatabase::class.java,DB_NAME)
-//        .addTypeConverter(attributeListTypeConverter)
-//        .addTypeConverter(descriptionListTypeConverter)
-//        .addTypeConverter(fieldListTypeConverter)
-//        .addTypeConverter(imageListTypeConverter)
-//        .addTypeConverter(levelListTypeConverter)
-//        .addTypeConverter(nextEvolutionListTypeConverter)
-//        .addTypeConverter(priorEvolutionListTypeConverter)
-//        .addTypeConverter(skillListTypeConverter)
-//        .addTypeConverter(typeListTypeConverter)
         .build()
 
     @Provides

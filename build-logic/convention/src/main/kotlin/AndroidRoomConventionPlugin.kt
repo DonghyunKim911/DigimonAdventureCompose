@@ -13,6 +13,7 @@ class AndroidRoomConventionPlugin : Plugin<Project> {
         with(target) {
             apply(plugin = "androidx.room")
             apply(plugin = "com.google.devtools.ksp")
+            apply(plugin = "org.jetbrains.kotlin.plugin.serialization") // todo : to separate plugin into new Convention plugin.
 
             extensions.configure<KspExtension> {
                 arg("room.generateKotlin", "true")

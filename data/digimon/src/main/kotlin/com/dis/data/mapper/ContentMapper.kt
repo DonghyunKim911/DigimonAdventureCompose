@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Content
 import com.dis.data.model.ContentData
-import com.dis.domain.digimon.model.Content
 
 fun ContentData.toDomain(): Content = Content(
     href = href,

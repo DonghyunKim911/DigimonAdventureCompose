@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.PriorEvolution
 import com.dis.data.model.PriorEvolutionData
-import com.dis.domain.digimon.model.PriorEvolution
 
 fun PriorEvolutionData.toDomain(): PriorEvolution = PriorEvolution(
     condition = condition,

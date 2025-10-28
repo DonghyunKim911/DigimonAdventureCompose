@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Attribute
 import com.dis.data.model.AttributeData
-import com.dis.domain.digimon.model.Attribute
 
 fun AttributeData.toDomain(): Attribute = Attribute(
     attribute = attribute,

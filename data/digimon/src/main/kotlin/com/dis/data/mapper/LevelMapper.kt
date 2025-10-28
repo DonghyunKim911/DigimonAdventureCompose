@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Level
 import com.dis.data.model.LevelData
-import com.dis.domain.digimon.model.Level
 
 fun LevelData.toDomain(): Level = Level(
     id = id,

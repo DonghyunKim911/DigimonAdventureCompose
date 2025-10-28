@@ -1,7 +1,7 @@
 package com.dis.data.mapper
 
+import com.dis.core.domain.model.Field
 import com.dis.data.model.FieldData
-import com.dis.domain.digimon.model.Field
 
 fun FieldData.toDomain(): Field = Field(
     field = field,
