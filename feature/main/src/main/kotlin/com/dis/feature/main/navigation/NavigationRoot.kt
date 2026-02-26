@@ -29,6 +29,7 @@ import com.dis.core.navigation.bottomBarItems
 import com.dis.feature.detail.DetailSKillListScreenRoot
 import com.dis.feature.detail.DetailScreenRoot
 import com.dis.feature.home.HomeScreenRoot
+import com.dis.feature.search.SearchScreenRoot
 
 @Composable
 fun NavigationRoot() {
@@ -44,7 +45,11 @@ fun NavigationRoot() {
                 bottomBarItems.forEach { destination ->
                     NavigationBarItem(
                         selected = currentBottomBarScreen == destination,
-                        onClick = { currentBottomBarScreen = destination },
+                        onClick = {
+                            currentBottomBarScreen = destination
+                            backstack.clear()
+                            backstack.add(destination)
+                        },
                         icon = { Icon(imageVector = destination.icon, contentDescription = "$destination icon") },
                     )
                 }
@@ -92,6 +97,12 @@ fun NavigationRoot() {
                     }
 
                     entry<BottomRoute.Search> {
+                        SearchScreenRoot(
+                            navigateToDigimonDetail = { id ->
+                                backstack.add(Route.Detail(id))
+                            },
+                            modifier = Modifier.padding(innerPadding),
+                        )
                     }
 
                     entry<BottomRoute.Bookmark> {
