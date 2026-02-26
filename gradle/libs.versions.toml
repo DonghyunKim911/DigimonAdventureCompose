@@ -49,6 +49,7 @@ javaxInject = "1"
 
 kotlin-ktlint-engine = "1.7.1"
 kotlin-ktlint-gradle = "13.1.0"
+detekt = "1.23.8"
 
 [libraries]
 # Koltin
@@ -115,6 +116,8 @@ javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInjec
 
 compose-stable-marker = { group = "com.github.skydoves", name = "compose-stable-marker", version.ref = "composeStableMarker" }
 
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext`", name = "junit", version.ref = "junitVersion" }
@@ -146,6 +149,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 room = { id = "androidx.room", version.ref = "androidxRoom" }
 kotlin-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "kotlin-ktlint-gradle" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 # Plugins defined by this project
 digimonadventure-android-application = { id = "digimonadventure.android.application", version = "unspecified" }
