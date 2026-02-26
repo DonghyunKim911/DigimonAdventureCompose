@@ -1,0 +1,47 @@
+# Detekt configuration tuned for Android + Compose projects.
+# Goal: detect meaningful code smells while avoiding noisy checks in early adoption.
+
+build:
+  maxIssues: 0
+
+config:
+  validation: true
+  warningsAsErrors: false
+
+complexity:
+  LongMethod:
+    active: true
+    threshold: 80
+    ignoreAnnotated:
+      - Composable
+      - Preview
+  LongParameterList:
+    active: true
+    functionThreshold: 10
+    constructorThreshold: 8
+    ignoreDefaultParameters: true
+    ignoreDataClasses: true
+
+naming:
+  FunctionNaming:
+    active: true
+    functionPattern: '[a-z][a-zA-Z0-9]*'
+    ignoreAnnotated:
+      - Composable
+
+style:
+  MaxLineLength:
+    active: true
+    maxLineLength: 150
+    excludeImportStatements: true
+  MagicNumber:
+    active: false
+  UnusedPrivateMember:
+    active: true
+    ignoreAnnotated:
+      - Preview
+  WildcardImport:
+    active: false
+
+formatting:
+  active: false
