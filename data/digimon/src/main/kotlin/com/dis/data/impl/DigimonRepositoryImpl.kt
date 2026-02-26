@@ -10,6 +10,7 @@ import com.dis.data.remote.DigimonRemoteDataSource
 import com.dis.domain.digimon.repository.DigimonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DigimonRepositoryImpl
@@ -32,6 +33,11 @@ class DigimonRepositoryImpl
                 } else {
                     emit(digimons.map { it.toDomain() })
                 }
+            }
+
+        override fun getBookmarkDigimonList(): Flow<List<Content>> =
+            local.getBookmarkDigimonList().map { digimons ->
+                digimons.map { it.toDomain() }
             }
 
         override suspend fun getDigimonDetail(id: Int): Digimon? {

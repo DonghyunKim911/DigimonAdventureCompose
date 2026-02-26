@@ -1,6 +1,5 @@
 package com.dis.data.local
 
-import com.dis.core.domain.model.Favorite
 import com.dis.data.model.ContentData
 import com.dis.data.model.DigimonData
 import com.dis.data.model.FavoriteData
@@ -15,6 +14,8 @@ interface DigimonLocalDataSource {
     suspend fun saveDigimonDetail(digimon: DigimonData)
 
     suspend fun getDigimonList(page: Int): List<ContentData>
+
+    fun getBookmarkDigimonList(): Flow<List<ContentData>>
 
     suspend fun getDigimonDetail(id: Int): DigimonData?
 

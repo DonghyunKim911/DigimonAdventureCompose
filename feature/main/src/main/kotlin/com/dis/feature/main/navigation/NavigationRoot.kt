@@ -26,6 +26,7 @@ import com.dis.core.navigation.BottomBarScreenSaver
 import com.dis.core.navigation.BottomRoute
 import com.dis.core.navigation.Route
 import com.dis.core.navigation.bottomBarItems
+import com.dis.feature.bookmark.BookmarkScreenRoot
 import com.dis.feature.detail.DetailSKillListScreenRoot
 import com.dis.feature.detail.DetailScreenRoot
 import com.dis.feature.home.HomeScreenRoot
@@ -44,7 +45,11 @@ fun NavigationRoot() {
                 bottomBarItems.forEach { destination ->
                     NavigationBarItem(
                         selected = currentBottomBarScreen == destination,
-                        onClick = { currentBottomBarScreen = destination },
+                        onClick = {
+                            currentBottomBarScreen = destination
+                            backstack.clear()
+                            backstack.add(destination)
+                        },
                         icon = { Icon(imageVector = destination.icon, contentDescription = "$destination icon") },
                     )
                 }
@@ -95,6 +100,12 @@ fun NavigationRoot() {
                     }
 
                     entry<BottomRoute.Bookmark> {
+                        BookmarkScreenRoot(
+                            navigateToDigimonDetail = { id ->
+                                backstack.add(Route.Detail(id))
+                            },
+                            modifier = Modifier.padding(innerPadding),
+                        )
                     }
                 },
         )

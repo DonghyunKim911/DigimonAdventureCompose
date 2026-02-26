@@ -15,8 +15,10 @@ android {
 dependencies {
     implementation(projects.presentation.home)
     implementation(projects.presentation.detail)
+    implementation(projects.presentation.bookmark)
     implementation(projects.feature.home)
     implementation(projects.feature.detail)
+    implementation(projects.feature.bookmark)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
