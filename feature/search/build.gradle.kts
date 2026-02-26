@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dis.feature.main"
+    namespace = "com.dis.feature.search"
     compileSdk = Configuration.compileSdk
 
     defaultConfig {
@@ -13,18 +13,19 @@ android {
 }
 
 dependencies {
-    implementation(projects.presentation.home)
     implementation(projects.presentation.search)
-    implementation(projects.presentation.detail)
-    implementation(projects.feature.home)
-    implementation(projects.feature.search)
-    implementation(projects.feature.detail)
+    implementation(projects.core.presentation)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    implementation(libs.kotlinx.immutable.collection)
+
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewModelCompose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
