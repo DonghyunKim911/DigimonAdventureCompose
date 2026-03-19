@@ -1,9 +1,11 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import org.gradle.kotlin.dsl.configure
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
+    alias(libs.plugins.kover) apply false
     alias(libs.plugins.kotlin.ktlint) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.android.application) apply false

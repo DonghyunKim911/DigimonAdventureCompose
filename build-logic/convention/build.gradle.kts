@@ -10,6 +10,7 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.kotlinx.serialization.json)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.kover.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
 }
 
