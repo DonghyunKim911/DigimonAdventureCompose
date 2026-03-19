@@ -42,6 +42,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -217,6 +218,10 @@ private fun DigimonContent(
     onAction: (DetailAction) -> Unit,
 ) {
     val scrollState = rememberScrollState()
+    val descriptionText = digimon.description
+            .firstOrNull()
+            ?.description
+            ?.takeIf { it.isNotBlank() }
 
     Column(
         modifier =
@@ -232,7 +237,8 @@ private fun DigimonContent(
             modifier =
                 Modifier
                     .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             val context = LocalContext.current
 
@@ -253,41 +259,42 @@ private fun DigimonContent(
 
             Text(
                 text = digimon.name,
+                modifier = Modifier.weight(1f),
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
             )
 
-            TtsSpeakingIndicator(
-                isSpeaking = isSpeaking,
-                modifier =
-                    Modifier
-                        .size(30.dp)
-                        .clickable {
-                            if (isSpeaking) {
-                                controller.stop()
-                            } else {
-                                controller.speak(
-                                    text =
-                                        digimon.description
-                                            .first()
-                                            ?.description
-                                            .toString(),
-                                    locale = Locale.US,
-                                    rate = 1.0f,
-                                    pitch = 1.0f,
-                                )
-                            }
-                        },
-            )
+            if (descriptionText != null) {
+                TtsSpeakingIndicator(
+                    isSpeaking = isSpeaking,
+                    modifier =
+                        Modifier
+                            .size(30.dp)
+                            .clickable {
+                                if (isSpeaking) {
+                                    controller.stop()
+                                } else {
+                                    controller.speak(
+                                        text = descriptionText,
+                                        locale = Locale.US,
+                                        rate = 1.0f,
+                                        pitch = 1.0f,
+                                    )
+                                }
+                            },
+                )
+            }
         }
 
         Text(
-            text = digimon.description.firstOrNull()?.description ?: "",
+            text = descriptionText.orEmpty(),
             fontSize = 14.sp,
         )
 
         DigimonInfo(
-            level = digimon.level.first()?.level ?: "",
+            level = digimon.level.firstOrNull()?.level ?: "",
             attribute = digimon.attribute.firstOrNull()?.attribute ?: "",
             type = digimon.type.firstOrNull()?.type ?: "",
         )

@@ -14,14 +14,26 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
+
+private data class IndicatorLayout(
+    val center: Offset,
+    val radius: Float,
+    val startX: Float,
+    val barWidth: Float,
+    val gap: Float,
+    val minHeight: Float,
+    val maxHeight: Float,
+    val idleHeight: Float,
+    val cornerRadius: Float,
+)
 
 @Composable
 fun TtsSpeakingIndicator(
@@ -35,7 +47,7 @@ fun TtsSpeakingIndicator(
     gap: Dp = 3.dp,
     barColor: Color = Color(0xFF111827), // 막대 색
     backgroundColor: Color = Color(0xFFEBEDF2), // 원형 배경색
-    innerPadding: Dp = 6.dp, // 원 가장자리와 막대 사이 여백
+    innerPadding: Dp = 6.dp, // 원 가장자리와 막대 사이 여백원
     cornerRadius: Dp = 2.dp,
     refreshMillis: Long = 110L,
     idleHeight: Dp = 6.dp,
@@ -62,59 +74,114 @@ fun TtsSpeakingIndicator(
     }
 
     Canvas(modifier.size(diameter)) {
-        val r = min(size.width, size.height) / 2f
-        val cx = size.width / 2f
-        val cy = size.height / 2f
+        val radius = min(size.width, size.height) / 2f
+        val center = Offset(size.width / 2f, size.height / 2f)
 
         // 배경 원
-        drawCircle(color = backgroundColor, radius = r, center = Offset(cx, cy))
+        drawCircle(color = backgroundColor, radius = radius, center = center)
 
-        // 여백 포함 원 안쪽 사용 가능 폭/높이
-        val pad = innerPadding.toPx()
-        val usableW = 2f * r - 2f * pad
-        val usableH = 2f * r - 2f * pad
-
-        // 막대 폭을 원 안에 꼭 맞게 보정(가로 중앙 정렬)
-        val gapPx = gap.toPx()
-        val desiredBarW = barWidth.toPx()
-        val maxBarW = (usableW - gapPx * (bars - 1)) / bars
-        val barW = max(1f, min(desiredBarW, maxBarW))
-
-        val totalBarsW = bars * barW + (bars - 1) * gapPx
-        val startX = cx - totalBarsW / 2f
-
-        // 높이 범위 (세로 중앙 기준 양방향으로 성장)
-        val minH = minBarHeight.toPx()
-        val maxH = min(maxBarHeight.toPx(), usableH) // 원 안을 넘지 않게
-        val idleH = idleHeight.toPx().coerceIn(minH, maxH)
+        val layout =
+            calculateIndicatorLayout(
+                bars = bars,
+                innerPadding = innerPadding,
+                barWidth = barWidth,
+                gap = gap,
+                minBarHeight = minBarHeight,
+                maxBarHeight = maxBarHeight,
+                idleHeight = idleHeight,
+                cornerRadius = cornerRadius,
+            ) ?: return@Canvas
 
         // 원형 마스크
         val circlePath =
             Path().apply {
-                addOval(Rect(cx - r, cy - r, cx + r, cy + r))
+                addOval(
+                    Rect(
+                        left = layout.center.x - layout.radius,
+                        top = layout.center.y - layout.radius,
+                        right = layout.center.x + layout.radius,
+                        bottom = layout.center.y + layout.radius,
+                    ),
+                )
             }
 
         clipPath(circlePath) {
-            var x = startX
-            val radiusPx = cornerRadius.toPx()
+            var x = layout.startX
 
             repeat(bars) { i ->
                 // 0..1 값 → 높이로 보간
                 val t = anims[i].value
-                val targetH = if (isSpeaking) (minH + (maxH - minH) * t) else idleH
-                val h = targetH.coerceIn(1f, maxH)
+                val targetH =
+                    if (isSpeaking) {
+                        layout.minHeight + (layout.maxHeight - layout.minHeight) * t
+                    } else {
+                        layout.idleHeight
+                    }
+                val h = targetH.coerceIn(0f, layout.maxHeight)
+                val radiusPx = min(layout.cornerRadius, min(layout.barWidth, h) / 2f)
 
                 // 세로 ‘중앙’을 기준으로 위/아래로 같은 만큼
-                val topY = cy - h / 2f
+                val topY = layout.center.y - h / 2f
 
                 drawRoundRect(
                     color = barColor,
                     topLeft = Offset(x, topY),
-                    size = Size(barW, h),
+                    size = Size(layout.barWidth, h),
                     cornerRadius = CornerRadius(radiusPx, radiusPx),
                 )
-                x += barW + gapPx
+                x += layout.barWidth + layout.gap
             }
         }
     }
+}
+
+private fun DrawScope.calculateIndicatorLayout(
+    bars: Int,
+    innerPadding: Dp,
+    barWidth: Dp,
+    gap: Dp,
+    minBarHeight: Dp,
+    maxBarHeight: Dp,
+    idleHeight: Dp,
+    cornerRadius: Dp,
+): IndicatorLayout? {
+    if (bars <= 0 || size.minDimension <= 0f) return null
+
+    val radius = min(size.width, size.height) / 2f
+    val center = Offset(size.width / 2f, size.height / 2f)
+    val padding = min(innerPadding.toPx().coerceAtLeast(0f), radius)
+    val usableWidth = (size.width - padding * 2f).coerceAtLeast(0f)
+    val usableHeight = (size.height - padding * 2f).coerceAtLeast(0f)
+
+    if (usableWidth <= 0f || usableHeight <= 0f) return null
+
+    val gapCount = (bars - 1).coerceAtLeast(0)
+    val desiredBarWidth = barWidth.toPx().coerceAtLeast(1f)
+    val desiredGap = gap.toPx().coerceAtLeast(0f)
+    val desiredTotalWidth = bars * desiredBarWidth + gapCount * desiredGap
+    val widthScale = if (desiredTotalWidth > 0f) min(1f, usableWidth / desiredTotalWidth) else 1f
+    val fittedBarWidth = desiredBarWidth * widthScale
+    val fittedGap = desiredGap * widthScale
+    val totalBarsWidth = bars * fittedBarWidth + gapCount * fittedGap
+
+    if (fittedBarWidth <= 0f || totalBarsWidth <= 0f) return null
+
+    val maxHeight = min(maxBarHeight.toPx().coerceAtLeast(0f), usableHeight)
+    if (maxHeight <= 0f) return null
+
+    val minHeight = min(minBarHeight.toPx().coerceAtLeast(0f), maxHeight)
+    val idleHeightPx = idleHeight.toPx().coerceAtLeast(0f).coerceIn(minHeight, maxHeight)
+    val startX = center.x - totalBarsWidth / 2f
+
+    return IndicatorLayout(
+        center = center,
+        radius = radius,
+        startX = startX,
+        barWidth = fittedBarWidth,
+        gap = fittedGap,
+        minHeight = minHeight,
+        maxHeight = maxHeight,
+        idleHeight = idleHeightPx,
+        cornerRadius = cornerRadius.toPx().coerceAtLeast(0f),
+    )
 }
