@@ -33,20 +33,24 @@ sealed interface Route : NavKey {
 
 sealed interface BottomRoute : NavKey {
     val icon: ImageVector
+    val label: String
 
     @Serializable
     data object Home : BottomRoute {
         override val icon = Icons.Default.Home
+        override val label = "Home"
     }
 
     @Serializable
     data object Search : BottomRoute {
         override val icon = Icons.Default.Search
+        override val label = "Search"
     }
 
     @Serializable
     data object Bookmark : BottomRoute {
         override val icon = Icons.Default.Bookmark
+        override val label = "Bookmark"
     }
 }
 

@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.presentation)
+    api(projects.core.presentation)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.navigation3.runtime)
 
